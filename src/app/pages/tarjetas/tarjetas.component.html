@@ -1,0 +1,91 @@
+<main class="container__general">
+    <div class="titulo">
+        <h1 class="scale-in-ver-center">{{pregunta}}</h1>
+    </div>
+    <div class="container">
+        <label for="opc1">
+            <div class="card">
+                <div class="face front">
+                    <img [src]="img1" alt="imagen_playa">
+                    <h3>{{opcion1}}</h3>
+                </div>
+
+                <div class="face back">
+                    <h3>¿Sabias qué...</h3>
+                    <p>{{dato1}}
+                    </p>
+                </div>
+            </div>
+        </label>
+
+        <label for="opc2">
+            <div class="card">
+                <div class="face front">
+                    <img [src]="img2" alt="imagen_montaña">
+                    <h3>{{opcion2}}</h3>
+                </div>
+    
+                <div class="face back">
+                    <h3>¿Sabias qué...</h3>
+                    <p>{{dato2}}
+                    </p>
+                </div>
+            </div>
+        </label>
+
+        <label for="opc3">
+            <div class="card">
+                <div class="face front">
+                    <img [src]="img3"  alt="imagen_cuidad">
+                    <h3>{{opcion3}}</h3>
+                </div>
+            
+                <div class="face back">
+                    <h3>¿Sabias qué...</h3>
+                    <p>{{dato3}}
+                    </p>
+                </div>
+            </div>
+        </label>
+    </div>
+    <form class="radio">
+        <div>
+            
+            <label> 
+                <input id="opc1" type="radio" [value]="opcion1" name="opciones" [(ngModel)]="opcSelect" (change)="verificarSeleccion()"> 
+            </label>
+            
+        </div>
+        <div>
+            <label>
+                <input id="opc2" type="radio" [value]="opcion2" name="opciones" [(ngModel)]="opcSelect" (change)="verificarSeleccion()"> 
+            </label>
+            
+        </div>
+        <div>
+            <label>
+                <input id="opc3" type="radio" [value]="opcion3" name="opciones" [(ngModel)]="opcSelect" (change)="verificarSeleccion()">
+            </label>
+            
+        </div>
+    </form>
+
+    <div class="navegacion">
+        <ul>
+            <li class="perfil" (click)="regresarPerfil()">Perfil</li>
+            <li class="{{t0}}">1</li>
+            <li class="{{t1}}">2</li>
+            <li class="{{t2}}">3</li>
+            <li class="{{t3}}">4</li>
+            <li class="{{t4}}">5</li>
+            <li class="{{t5}}">6</li>
+        </ul>
+    </div>
+
+    <form class="botones">
+        <button type="button" (click)="atras()" [disabled]="disAtras">Atrás</button>
+        <button type="button" (click)="siguiente()" [disabled]="disSig" [hidden]="hidSig">Siguiente</button>
+        <button type="button" [hidden]="calcular" routerLink="/resultados">Calcular Destino</button>
+    </form>
+</main>
+

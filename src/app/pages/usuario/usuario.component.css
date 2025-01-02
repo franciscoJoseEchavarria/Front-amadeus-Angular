@@ -1,0 +1,51 @@
+.usuario{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.usuario .avatar{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.infoUsuario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    position: absolute;
+    right: 0;
+    width: 300px;
+    height: 150px;
+    border-radius: 10px;
+    background-color: #C5D5F9;
+    z-index: 1;
+    transition: all 1s ease;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.infoUsuario .imgIcon{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.infoUsuario .buttonSesion{
+    border: none;
+    border-bottom: 1px #3a8bff solid;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.infoUsuario h3 span {
+    font-weight: 200;
+}

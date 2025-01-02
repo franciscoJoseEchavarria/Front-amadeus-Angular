@@ -1,0 +1,48 @@
+<main class="conteiner">
+    <h1 class="conteiner__titulo">Tus preferencias:</h1>
+    <div class="conteiner--resumen">
+        <div class="resumen__preguntas">
+            <div class="resumen__preguntas__item">Preferencia Destino:</div>
+            <div class="resumen__preguntas__item">Preferencia Climática:</div>
+            <div class="resumen__preguntas__item">Preferencia Actividad:</div>
+            <div class="resumen__preguntas__item">Preferencia Alojamiento:</div>
+            <div class="resumen__preguntas__item">Duración viaje:</div>
+            <div class="resumen__preguntas__item">Edad:</div>
+        </div>
+        <form action="" class="resumen__respuestas">
+        <!-- <div class="resumen__respuestas"> -->
+            <div class="resumen__respuestas__item">
+                <input type="text" value="{{pDestino}}" readonly id="entorno">
+                <!-- <input type="text" value="{{pNanInt}}" readonly id="destino"> -->
+            </div>
+            <div class="resumen__respuestas__item">
+                <input type="text" value="{{pClimatica}}" readonly id="clima">
+                <!-- <input type="text" value="{{pLluvia}}" readonly id="lluvia"> -->
+            </div>
+            <div class="resumen__respuestas__item">
+                <input type="text" value="{{pActividad}}" readonly id="actividades">
+                <!-- <input type="text" value="{{pGastronomia}}" readonly id="gastronomia"> -->
+            </div>
+            <div class="resumen__respuestas__item">
+                <input type="text" value="{{pAlojamiento}}" readonly id="alojamiento">
+                <!-- <input type="text" value="{{pCentroAfueras}}" readonly id="centroAfueras"> -->
+            </div>
+            <div class="resumen__respuestas__item">
+                <input type="text" value="{{dViaje}}" readonly id="tiempo">
+                <!-- <input type="text" value="{{pDescanso}}" readonly id="descanso"> -->
+            </div>
+            <div class="resumen__respuestas__item">
+                <input type="text" value="{{edad}}" readonly id="edad">
+                <!-- <input type="text" value="{{pDescanso}}" readonly id="descanso"> -->
+            </div>
+        <!-- </div> -->
+        </form>
+        <div class="resumen__imagen">
+            <i class="fa-solid fa-plane-up slide-in-bottom vibrate-1"></i>
+        </div>
+    </div>
+    <div class="conteiner__botones">
+        <button routerLink="/tarjetas" type="button" (click)="volverAtras()">Atras</button>
+        <button class="vibrate-1" type="button" routerLink="/destino" (click)="enviarDestino()">confirmar</button>
+    </div>
+</main>

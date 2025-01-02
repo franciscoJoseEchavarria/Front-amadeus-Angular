@@ -1,0 +1,143 @@
+<main class="conteiner">
+  <h1 class="conteiner__titulo">Tus Destinos:</h1>
+
+  <div [hidden]="control">
+    <h3 class="conteiner__titulo">
+      Tus Gustos son bastante exóticos, te sugerimos los siguientes lugares:
+    </h3>
+  </div>
+
+  <div class="conteiner--opciones">
+    <section class="opciones--opcion">
+      <div class="opcion__encabezado">
+        <h2 class="opcion__encabezado__nombre" (click)="destino()">
+          Aventura en América
+        </h2>
+      </div>
+
+      <div class="opcion__destino">
+        <input
+          [value]="america[0]?.nombreDestino"
+          class="opcion__encabezado__destino focus-in-expand"
+          type="text"
+          readonly
+          id="destinoAmerica"
+        />
+      </div>
+
+      <div class="opcion__imagen">
+        <img
+          [src]="america[0]?.img"
+          alt="Destino en America"
+          id="imagenAmerica"
+        />
+        <div class="overlay">
+          <div class="text">
+            <p>Pais:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="america[0]?.pais"
+              readonly
+            />
+            <p>Idioma:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="america[0]?.idioma"
+              readonly
+            />
+            <p>Lugar Imperdible:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="america[0]?.lugarImperdible"
+              readonly
+            />
+            <p>Comida típica:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="america[0]?.comidaTipica"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="opcion__link__item">
+        <a routerLink="/planes"
+          ><img src="../../../assets/img/paquete.png" alt=""
+        /></a>
+        <span class="tooltiptext">Explora tus opciones</span>
+      </div>
+    </section>
+
+    <section class="opciones--opcion">
+      <div class="opcion__encabezado">
+        <h2 class="opcion__encabezado__nombre">
+          Aventura en
+          <ng-container
+            *ngIf="europa[0]?.continente === 'Europa'; else showAsia"
+          >
+            Europa
+          </ng-container>
+          <ng-template #showAsia> Asia </ng-template>
+        </h2>
+      </div>
+
+      <div class="opcion__destino">
+        <input
+          [value]="europa[0]?.nombreDestino"
+          class="opcion__encabezado__destino focus-in-expand"
+          type="text"
+          readonly
+          id="destinoEuropa"
+        />
+      </div>
+
+      <div class="opcion__imagen">
+        <img [src]="europa[0]?.img" alt="Destino en Europa" id="imagenEuropa" />
+        <div class="overlay">
+          <div class="text">
+            <p>Pais:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="europa[0]?.pais"
+              readonly
+            />
+            <p>Idioma:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="europa[0]?.idioma"
+              readonly
+            />
+            <p>Lugar Imperdible:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="europa[0]?.lugarImperdible"
+              readonly
+            />
+            <p>Comida típica:</p>
+            <input
+              class="text__input"
+              type="text"
+              [value]="europa[0]?.comidaTipica"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="opcion__link__item">
+        <a routerLink="/planes"
+          ><img src="../../../assets/img/paquete.png" alt=""
+        /></a>
+        <span class="tooltiptext">Explora tus opciones</span>
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+:root {
+    /*  -  */
+    --color01: #ffffff;
+    --color02: #c5d5f9;
+    --color03: #3a8bff;
+    
+    /*  Botones fondo oscuro  */
+    /*  .buttonBG-dark {}  */
+    --colorButtonBG-dark: #0c66e1;
+    --colorButtonHover-dark: #0a2f62;
+    --colorButtonFont-dark: #ffffff;
+    --colorButtonActive-dark: #000835;
+
+    /*  Botones fondo blanco  */
+    /*  .buttonBG-light {}  */
+    --colorButtonBG-light: #0a2f62;
+    --colorButtonHover-light: #0c66e1;
+    --colorButtonFont-light: #ffffff;
+    --colorButtonActive-light: #000835;
+
+    /*  Input fondo blanco  */
+    /*  .buttonBG-light {}  */
+    --colorInputBG-light: #0a2f62;
+    --colorInputHover-light: #0c66e1;
+    --colorInputFont-light: #000835;
+    --colorInputActive-light: #000835;
+
+    
+    /*  Barras Amadeus  */
+    --colorBand-black: #000000;
+    --colorBand-dark: #000835;
+    --colorBand-medium: #0c66e1;
+    --colorBand-light: #3a8bff;
+    --colorBand-white: #ffffff;
+
+    /*  Nombre Amadeus  */
+    --colorAmadeus-dark: #000835;
+    --colorAmadeus-light: #ffffff;
+    
+    /*  Cuadros con números y texto  */
+    --color07: #ebf3ff;
+    --color04: #0c66e1;             /* --color04 */
+    
+    /*  iconos header  */
+    --color08: #000000;
+    
+    /*  Footer  */
+    --color09: #666666;
+    
+    /*  -  */
+    --color11: #e4c7ff;
+    --color12: #d396ff;
+    --color13: #26005a;
+    /* Colores diferentes */
+    /* https://amadeus.com/es/aerolineas/productos/nevio */
+    /* https://amadeus.com/es/aerolineas/overview */
+    
+
+    /*  check  */
+    --color15: #a4d065;
+    --color16: #c8d4ed;
+    --color17: #c5d5f9;
+    --color18: #fafafa;
+
+    --zombra: #f0f0f0;
+    --azulSobreOscuro: #c5d5f9;
+}
+
+

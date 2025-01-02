@@ -1,0 +1,385 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #fff;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    justify-content:center;
+}
+
+.container__general{
+    display: flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    width: 90%; 
+    height: 100%; 
+    background-color: #000835;
+    margin: 1% 5%;
+    padding: 20px;
+    /* position: absolute; */
+    /* top: 10%; */
+    /* left: 20%; */
+    /* transform: translate(-50%, -50%); */
+
+}
+
+.datos{
+    display: flex;
+    height: 5%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    background-color: #c5d5f9;
+}
+
+.datos__imagen{
+    height: 100%;
+}
+
+.datos__imagen img {
+    height: 40px;
+
+}
+
+.titulo {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+
+.scale-in-ver-center {
+    -webkit-animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes scale-in-ver-center {
+    0% {
+    -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+        opacity: 1;
+    }
+    100% {
+    -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+.scale-in-ver-center{
+    -webkit-box-shadow: 9px 9px 22px -9px #3a8bff;
+    -moz-box-shadow: 9px 9px 22px -9px #3a8bff;
+    box-shadow: 9px 9px 22px -9px #3a8bff;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+}
+.card{
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 20px;
+}
+
+.card .face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    overflow: hidden;
+    transition: 0.8s;
+}
+
+.card .front{
+    transform: perspective(600px) rotateY(0deg);
+    -webkit-box-shadow: 18px 14px 0px 2px #c5d5f9;
+    -moz-box-shadow: 18px 14px 0px 2px #c5d5f9;
+    box-shadow: 18px 14px 0px 2px #c5d5f9;
+
+}
+
+.card .front img{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card .front h3{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    background: #00000066;
+    text-align: center;
+}
+
+.card .back {
+    transform:perspective(600px) rotateY(180deg);
+    background:#c5d5f9 ;
+    padding: 15px;
+    color:#3a8bff;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+    text-align: center;
+    box-shadow: 0 5px 10px #3a8bff;
+}
+
+.card .back .h3{
+    font-size: 30px;
+    margin-top:20px;
+    letter-spacing:2px ;
+} 
+
+.card .back p{
+    letter-spacing: 1px;
+}
+
+.card:hover .front{
+    transform: perspective(600px) rotateY(180deg);
+    
+}
+
+.card:hover .back{
+    transform: perspective(600px) rotateY(360deg);
+}
+
+.navegacion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    margin: 30px 10px 10px 10px;
+    height: 50px;
+}
+
+.navegacion ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contador {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px 15px;
+    color: #000835;
+    text-decoration: none;
+    background-color:#c5d5f9;
+    border-radius: 10px;
+    position: relative;  
+    border-radius: 10px;
+    width: auto;
+    
+    &::before{ 
+        content: url(../../../assets/img/aeronave.png);
+        position:absolute;
+        bottom: 70px;
+        right: -8px;
+        width: 100%;
+        height: 4%;
+        
+
+        opacity: 0;
+    }
+}
+
+.contadorOn { 
+    color: #c5d5f9;
+    background-color: #3a8bff;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px 15px;
+    text-decoration: none;
+    border-radius: 10px;
+    position: relative;
+}
+
+.perfil { 
+    color: #c5d5f9;
+    background-color: #3a8bff;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px 15px;
+    text-decoration: none;
+    border-radius: 10px;
+    position: relative;
+}
+
+
+.perfil:hover{
+    background-color:#c5d5f9;
+    color: #000835;
+    cursor: pointer;
+}
+
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+}
+
+button{
+    border-radius: 8px;
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    color: #000835;
+    padding: 5px 10px;
+    margin: auto;
+}
+
+button:hover{
+    color: #c5d5f9;
+    background-color: #3a8bff;
+}
+
+
+@media screen and(max-width:767px){
+    body{
+        display:flex;
+        flex-direction: column;
+    }
+
+    .titulo{
+        width: 85%;
+        height: 75%;
+    }
+    
+    .navegacion {
+        align-items: center;
+        height: auto;
+    }
+
+    .navegacion ul {
+        justify-content: center;
+        gap: 10px;
+    } 
+    .navegacion ul li a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .container{
+        width: 85%;
+    }
+    .container__general{
+        width: 100%;
+        height: auto;
+        padding: 15px 5px;
+        margin: 2%;
+    }  
+
+    .botones{
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px){
+    body{
+        display:flex;
+        flex-direction: column;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .container__general {
+        width: 100%;
+    }
+}
+
+@media (max-width: 470px) {
+    .container {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .titulo{
+        width: 85%;
+    }
+    .navegacion {
+        align-items: center;
+        height: auto;
+    }
+
+    .navegacion ul {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .navegacion ul li {
+        flex: 0 1 calc(33.333% - 28px );
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .navegacion ul li a {
+        width: 100%;
+        text-align: center;
+
+        &::before{ 
+            content: url(../../../assets/img/aeronave.png);
+            position:absolute;
+            bottom: 63px;
+            right: -8px;
+            width: 100%;
+            height: 2%;
+            
+    
+            opacity: 0;
+        }
+    
+        &.selected::before{
+            opacity: 1;
+        } 
+    }
+
+    .container__general {
+        width: 100%;
+    }
+    .container {
+        width: 95%;
+    }
+    .container__general {
+        width: 100%;
+        height: auto;
+        padding: 15px 5px;
+        margin: 2%;
+    }
+}
+
+.radio{
+    display: flex;
+    justify-content: space-evenly;
+    color: #fff;
+}

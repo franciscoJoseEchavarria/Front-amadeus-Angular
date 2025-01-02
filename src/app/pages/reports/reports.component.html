@@ -1,0 +1,4 @@
+<div *ngIf="reportData">
+  <pre>{{ reportData | json }}</pre>
+</div>
+<button (click)="loadReportData()">Actualizar Reporte</button>
