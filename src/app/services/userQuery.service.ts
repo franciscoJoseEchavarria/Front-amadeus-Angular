@@ -4,33 +4,38 @@ import axios, { AxiosInstance } from 'axios';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private apiURL = 'http://localhost:8081/api/user';
+export class UserQueryService {
+  private apiURL = 'http://localhost:8081/api/userQueryController';
+  private axiosClient: AxiosInstance;
 
-  // Método asíncrono para crear un nuevo usuario con nombre y email.
-  async createUser(name: string, email: string): Promise<boolean> {
-    // Imprime en la consola el nombre y email del usuario que se está creando.
-    console.log('Creando usuario con nombre:', name, 'y email:', email);
+  constructor() {
+    this.axiosClient = axios.create({
+      baseURL: this.apiURL,
+    });
+  }
+
+  async createUser(userQuery: {
+    query: string;
+    queryTime: string;
+    environmentType1: string;
+    climateType2: string;
+    accommodationType3: string;
+    activityType4: string;
+    stayDuration: string;
+    ageRange: string;
+    user: any;
+  }): Promise<boolean> {
+    console.log('Creando usuario con datos:', userQuery);
     try {
-      // Realiza una petición POST a la API para crear un nuevo usuario.
-      const response = await axios.post(`${this.apiURL}/create`, {
-        name,
-        email,
-        role: 'user',
-      });
+      const response = await this.axiosClient.post('/create', userQuery);
 
-      // Si la creación es exitosa, devuelve true.
       if (response.status === 200) {
-        
-        
-        
         return true;
       } else {
         console.error('Error en la creación de usuario');
         return false;
       }
     } catch (error) {
-      // Maneja errores específicos de axios.
       if (axios.isAxiosError(error)) {
         if (error.response && error.response.status === 409) {
           alert('El usuario ya existe: Ir e iniciar sesión');
@@ -38,12 +43,11 @@ export class UserService {
           console.error('Error en la creación de usuario', error);
         }
       } else {
-        // Maneja errores inesperados.
         console.error('Se ha producido un error inesperado', error);
       }
       return false;
     }
-  }
+}
 
   // Método asíncrono para obtener un usuario por ID.
   async getUserById(id: number): Promise<any> {

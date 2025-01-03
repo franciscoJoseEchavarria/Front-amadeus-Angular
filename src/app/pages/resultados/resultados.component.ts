@@ -42,7 +42,12 @@ export class ResultadosComponent {
         pAlojamiento: this.destinoService.respuestasSer[3],
         dViaje: this.destinoService.respuestasSer[4],
         edad: this.destinoService.respuestasSer[5],
+        userData : sessionStorage.getItem('userdata')
       })
+
+
+
+
       .then((response) => {
         this.destinoService.destinoA = response.destinoA;
         this.destinoService.destinoE = response.destinoE;

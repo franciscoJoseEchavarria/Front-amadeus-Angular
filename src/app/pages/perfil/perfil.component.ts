@@ -123,14 +123,17 @@ export class PerfilComponent implements AfterViewInit {
     try{
       this.userService.createUser(this.nombre.value, this.correo.value);
       console.log('Usuario creado con éxito');
+      sessionStorage.setItem('userdata', JSON.stringify({
+        nombre: this.nombre.value,
+        correo: this.correo.value,
+        
+      }));
       this.router.navigate(['/tarjetas']);
     } catch (error){
       console.error('Error al crear el usuario ', error);
 
     }
   }
-
-
 
   verificarNomb(event: Event){
 
