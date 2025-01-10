@@ -12,6 +12,7 @@ import { DestinoService } from '@services/destino.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {UserService} from  '../../services/user.service' ;
 import { Router } from '@angular/router';
+import { response } from 'express';
 
 
 
@@ -41,20 +42,25 @@ export class PerfilComponent implements AfterViewInit {
   // Seleccionar elementos del DOM con @ViewChildren para evitar manipulación directa del DOM
   @ViewChildren('slidesElements') slidesElements!: QueryList<ElementRef>;
   @ViewChildren('dotElement') dotElemets!: QueryList<ElementRef>;
-
+  
   constructor(public destinoService: DestinoService, 
     private userService: UserService,
     private router: Router) {}
+
   estadoCorreo = "";
   controlBoton = true;
 
   slideIndex: number = 1;
 
+  nombre = new FormControl();
+  correo = new FormControl(); 
+  role = "user";
+ 
   // ngAfterViewInit se ejecuta después de que Angular haya inicializado las vistas del componente
   ngAfterViewInit(): void {
     this.showSlides(this.slideIndex);
   }
-
+  
   plusSlides(n: number): void {
     this.showSlides(this.slideIndex += n);
   }
@@ -93,13 +99,13 @@ export class PerfilComponent implements AfterViewInit {
     dots[this.slideIndex - 1].nativeElement.className += ' active';
   }
 
-  nombre = new FormControl();
-  correo = new FormControl(); 
 
-  datosUsuario(){
+ async datosUsuario(){
 
     this.destinoService.nombreS = this.nombre.value;
     this.destinoService.correoS = this.correo.value;
+    this.destinoService.roleS = this.role;
+
     
     switch(this.slideIndex){
       case 1: {
@@ -120,12 +126,43 @@ export class PerfilComponent implements AfterViewInit {
       }
     }
 
+   
+    try {
+      const success = await this.userService.createUser(this.nombre.value, this.correo.value, this.role);
+      const userId = this.userService.getUserId();
+      if (success !== null) {
+        sessionStorage.setItem('userdata', JSON.stringify({
+          userId: userId,
+          nombre: this.nombre.value,
+          correo: this.correo.value,
+          role: this.role,
+      }));
+        this.router.navigate(['/tarjetas']);
+      } 
+      
+    } catch (error) {
+      console.error('Error al crear el usuario ', error);
+    }
+  }
+
+
+
+
+
+
+
+/**   CÓDIGO ANTERIOR, SE COMENTA YA QUE NO SIRVE EL GETUSERID, NO SE OBTIENE EL ID DEL USUARIO
     try{
-      this.userService.createUser(this.nombre.value, this.correo.value);
+      this.userService.createUser(this.nombre.value, this.correo.value, this.role,);
       console.log('Usuario creado con éxito');
+      const userId = this.userService.getUserId();
+      console.log('Usuario creado con éxito, ID:', userId);
       sessionStorage.setItem('userdata', JSON.stringify({
+        
+        userId: userId,
         nombre: this.nombre.value,
         correo: this.correo.value,
+        role: this.role,
         
       }));
       this.router.navigate(['/tarjetas']);
@@ -134,6 +171,8 @@ export class PerfilComponent implements AfterViewInit {
 
     }
   }
+*/  
+
 
   verificarNomb(event: Event){
 

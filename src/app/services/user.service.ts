@@ -6,45 +6,43 @@ import axios, { AxiosInstance } from 'axios';
 })
 export class UserService {
   private apiURL = 'http://localhost:8081/api/user';
+  private userId: number | null = null;
+
+  
+
 
   // Método asíncrono para crear un nuevo usuario con nombre y email.
-  async createUser(name: string, email: string): Promise<boolean> {
+  async createUser( name: string, email: string,   role: string): Promise<boolean> {
     // Imprime en la consola el nombre y email del usuario que se está creando.
-    console.log('Creando usuario con nombre:', name, 'y email:', email);
     try {
       // Realiza una petición POST a la API para crear un nuevo usuario.
       const response = await axios.post(`${this.apiURL}/create`, {
         name,
         email,
-        role: 'user',
+        role,
+        
       });
 
+      
       // Si la creación es exitosa, devuelve true.
       if (response.status === 200) {
-        
-        
-        
+        this.userId = response.data.id;
+        console.log('Creando usuario con nombre:', name, ', email:', email ,
+          ', role:' , role, ', y ID:' , this.userId);
         return true;
       } else {
         console.error('Error en la creación de usuario');
         return false;
       }
     } catch (error) {
-      // Maneja errores específicos de axios.
-      if (axios.isAxiosError(error)) {
-        if (error.response && error.response.status === 409) {
-          alert('El usuario ya existe: Ir e iniciar sesión');
-        } else {
-          console.error('Error en la creación de usuario', error);
-        }
-      } else {
-        // Maneja errores inesperados.
-        console.error('Se ha producido un error inesperado', error);
-      }
-      return false;
+        console.error('Error en la creación de usuario', error);
+        return false;
     }
   }
-
+  
+  getUserId(): number | null {
+    return this.userId 
+  }
   // Método asíncrono para obtener un usuario por ID.
   async getUserById(id: number): Promise<any> {
     try {
@@ -60,4 +58,5 @@ export class UserService {
       throw error;
     }
   }
+  
 }

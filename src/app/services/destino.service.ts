@@ -7,10 +7,11 @@ import axios, { AxiosInstance } from 'axios';
 )
 export class DestinoService {
   private axiosClient: AxiosInstance;
+  private baseURL = 'http://localhost:8081/api/'
 
   constructor() {
     this.axiosClient = axios.create({
-      baseURL: 'http://localhost:8081/api/', // URL base para las solicitudes
+      baseURL: this.baseURL, // URL base para las solicitudes
       // timeout: 5000,
     });
   }
@@ -32,9 +33,11 @@ export class DestinoService {
    *   console.error('Error al enviar los datos', error);
    * }
    */
+
   async sendDestinity(endpoint: string, data: any): Promise<any> {
     try {
-      const response = await this.axiosClient.post(endpoint, data);
+      const fullURL = `${this.baseURL}${endpoint}`;;
+      const response = await this.axiosClient.post(fullURL, data);
       return response.data;
     } catch (error) {
       console.error('Error', error);
@@ -77,6 +80,8 @@ export class DestinoService {
   avatar: String = 'https://cdn-icons-png.flaticon.com/512/9187/9187532.png';
   srcA: String = '';
   srcE: String = '';
+  roleS: String = '';
+  userId: number = 0;
   
   
 }

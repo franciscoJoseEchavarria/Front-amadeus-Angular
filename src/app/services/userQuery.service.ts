@@ -8,47 +8,23 @@ export class UserQueryService {
   private apiURL = 'http://localhost:8081/api/userQueryController';
   private axiosClient: AxiosInstance;
 
+
+
   constructor() {
     this.axiosClient = axios.create({
       baseURL: this.apiURL,
     });
   }
 
-  async createUser(userQuery: {
-    query: string;
-    queryTime: string;
-    environmentType1: string;
-    climateType2: string;
-    accommodationType3: string;
-    activityType4: string;
-    stayDuration: string;
-    ageRange: string;
-    user: any;
-  }): Promise<boolean> {
-    console.log('Creando usuario con datos:', userQuery);
+  async createReport(queryData: any): Promise<any> {
     try {
-      const response = await this.axiosClient.post('/create', userQuery);
-
-      if (response.status === 200) {
-        return true;
-      } else {
-        console.error('Error en la creación de usuario');
-        return false;
-      }
+      const response = await axios.post(`${this.apiURL}/create`, queryData);
+      return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response && error.response.status === 409) {
-          alert('El usuario ya existe: Ir e iniciar sesión');
-        } else {
-          console.error('Error en la creación de usuario', error);
-        }
-      } else {
-        console.error('Se ha producido un error inesperado', error);
-      }
-      return false;
+      console.error('Error al crear el reporte:', error);
+      throw error;
     }
-}
-
+  }
   // Método asíncrono para obtener un usuario por ID.
   async getUserById(id: number): Promise<any> {
     try {
@@ -64,4 +40,6 @@ export class UserQueryService {
       throw error;
     }
   }
+
+
 }

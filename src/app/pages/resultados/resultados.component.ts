@@ -14,17 +14,22 @@ export class ResultadosComponent {
 
   destinoAmerica = '';
   destinoEuropa = '';
-  pDestino = this.destinoService.respuestasSer[0];
+  
+  Destino = this.destinoService.respuestasSer[0];
   // pNanInt = "Nacional";
-  pClimatica = this.destinoService.respuestasSer[1];
+  Clima = this.destinoService.respuestasSer[1];
   // pLluvia = "Clima seco";
-  pActividad = this.destinoService.respuestasSer[2];
+  Actividad = this.destinoService.respuestasSer[2];
   // pGastronomia = "Comida Local";
-  pAlojamiento = this.destinoService.respuestasSer[3];
+  Alojamiento = this.destinoService.respuestasSer[3];
   // pCentroAfueras = "Centro de la Ciudad";
-  dViaje = this.destinoService.respuestasSer[4];
+  Viaje  = this.destinoService.respuestasSer[4];
   // pDescanso = "1-2 días act.intensas";
-  edad = this.destinoService.respuestasSer[5];
+  Edad = this.destinoService.respuestasSer[5];
+
+
+  
+
 
   volverAtras() {
     this.destinoService.indice = 5;
@@ -32,9 +37,19 @@ export class ResultadosComponent {
   }
 
   enviarDestino() {
-    // Llama al método `sendDestinity` del servicio `DestinoService`, enviando un objeto con las respuestas seleccionadas
+
+    const userData = sessionStorage.getItem('userdata'); 
+    if (userData) { const parsedData = JSON.parse(userData); // Verifica si los datos están completos 
+      if (parsedData.nombre && parsedData.correo && parsedData.role && parsedData.userId) { 
+        console.log('Datos del usuario en resultadosComponent:', parsedData);
+      } else { console.error('Los datos del usuario están incompletos'); } } else { console.error('No se encontraron datos del usuario en sessionStorage'); }
+
+
+      // Llama al método `sendDestinity` del servicio `DestinoService`, enviando un objeto con las respuestas seleccionadas
+
+
     this.destinoService
-      .sendDestinity('enviarDestino', {
+      .sendDestinity('userQueryController/create', {
         // Parámetros que se envían en el cuerpo de la solicitud POST
         pDestino: this.destinoService.respuestasSer[0],
         pClimatica: this.destinoService.respuestasSer[1],
@@ -43,10 +58,8 @@ export class ResultadosComponent {
         dViaje: this.destinoService.respuestasSer[4],
         edad: this.destinoService.respuestasSer[5],
         userData : sessionStorage.getItem('userdata')
-      })
-
-
-
+      }   
+    )
 
       .then((response) => {
         this.destinoService.destinoA = response.destinoA;

@@ -20,6 +20,34 @@ export class TarjetasComponent {
 
   userData : any;
 
+
+  async ngOnInit(): Promise<void> {
+    // Obtener datos del usuario desde sessionStorage
+    const userDataString = await sessionStorage.getItem('userdata');
+    if (userDataString) {
+      this.userData = JSON.parse(userDataString);
+      console.log('Datos del usuario:', this.userData);
+    } else {
+      console.error('No se encontraron datos del usuario en sessionStorage');
+    }
+
+    // Ejemplo de una operación asíncrona adicional
+    await this.someAsyncOperation();
+  }
+
+  // Ejemplo de un método asíncrono adicional
+  async someAsyncOperation(): Promise<void> {
+    // Simulación de una operación asíncrona
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('Operación asíncrona completada');
+        resolve();
+      }, 2000);
+    });
+  }
+
+
+/** 
   ngOnInit(): void {
     // Obtener datos del usuario desde sessionStorage
     const userDataString = sessionStorage.getItem('userdata');
@@ -30,8 +58,8 @@ export class TarjetasComponent {
       console.error('No se encontraron datos del usuario en sessionStorage');
     }
   }
-
-
+*/
+  
   indice = this.destinoService.indice;
   opcSelect: String = '';
 
@@ -70,7 +98,7 @@ export class TarjetasComponent {
     ["Menos de 30 años","30-50 años","Más de 50 años"]
   ]
 
-  imgUrl =[
+  imgUrl = [
     ["../../../assets/img/imagen1.jpg","../../../assets/img/imagen2.jpg","../../../assets/img/imagen3.jpg"],
     ["../../../assets/img/Tulum.jpg","../../../assets/img/Templado.jpg","../../../assets/img/Frio.jpg"],
     ["../../../assets/img/Aventura.jpg","../../../assets/img/cultura.jpg","../../../assets/img/relax.jpg"],
@@ -148,29 +176,32 @@ export class TarjetasComponent {
 
   }
 
-siguiente () {
-
-  if(this.indice == 5){
-
+siguiente() {
+  // Si el índice es 5, significa que estamos en la última pregunta
+  if (this.indice == 5) {
+    // Agrega la opción seleccionada a las respuestas del servicio
     this.destinoService.respuestasSer.push(this.opcSelect);
     console.log(this.destinoService.respuestasSer);
-    
+
+    // Oculta el botón de siguiente y muestra el botón de calcular
     this.hidSig = true;
     this.calcular = false;
     this.disAtras = false;
-    this.opcSelect="";
+    this.opcSelect = "";
     return;
-
-  } else{
+  } else {
+    // Si no estamos en la última pregunta, asegura que el botón de siguiente esté visible
     this.hidSig = false;
   }
 
+  // Agrega la opción seleccionada a las respuestas del servicio
   this.destinoService.respuestasSer.push(this.opcSelect);
   console.log(this.destinoService.respuestasSer);
- 
+
+  // Incrementa el índice para avanzar a la siguiente pregunta
   this.indice++;
 
-
+  // Actualiza las preguntas y opciones basadas en el nuevo índice
   this.pregunta = this.preguntaA[this.indice];
   this.opcion1 = this.opcionesA[this.indice][0];
   this.opcion2 = this.opcionesA[this.indice][1];
@@ -182,8 +213,8 @@ siguiente () {
   this.dato2 = this.dato[this.indice][1];
   this.dato3 = this.dato[this.indice][2];
 
-
-  this.opcSelect="";
+  // Resetea la opción seleccionada y actualiza el estado de los botones
+  this.opcSelect = "";
   this.disSig = true;
   this.disAtras = false;
 
