@@ -13,7 +13,7 @@ export class PlanesComponent {
 
   constructor(public destinoService: DestinoService){}
 
-  destino = this.destinoService.destinoA;
+  destino = this.destinoService.destinoAmerica;
   srcA = this.destinoService.srcA;
   srcE = this.destinoService.srcE;
 

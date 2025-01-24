@@ -30,12 +30,22 @@ export class DestinoComponent {
       ? (this.control = false)
       : (this.control = true);
 
+
+//voy aca FRANCISCO ECHAVARRÍA
+
+
+       
+  
+
     this.destinoService
+
+  
       .getDestinity(
-        `searchName/${sessionStorage.getItem(
+        `/encontrar/${sessionStorage.getItem("destinoId")}${sessionStorage.getItem(
           'destinoAmerica'
         )}/${sessionStorage.getItem('destinoEuropa')}`
       )
+      
       .then((response) => {
         this.destinos = response;
         this.filtrarDestinos();
@@ -56,3 +66,5 @@ export class DestinoComponent {
     );
   }
 }
+
+

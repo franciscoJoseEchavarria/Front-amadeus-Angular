@@ -2,6 +2,7 @@ import { Component, importProvidersFrom } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { UserQueryService } from '@services/userQuery.service';
+import { parse } from 'path';
 
 @Component({
   selector: 'app-resultados',
@@ -11,6 +12,7 @@ import { UserQueryService } from '@services/userQuery.service';
   styleUrl: './resultados.component.css',
 })
 export class ResultadosComponent {
+  router: any;
   constructor(public destinoService: DestinoService, public userQueryService : UserQueryService) {}
 
   destinoAmerica = '';
@@ -45,7 +47,7 @@ export class ResultadosComponent {
     this.destinoService.respuestasSer.pop();
   }
 
-  enviarDestino() {
+  async enviarDestino() {
 
     const userData = sessionStorage.getItem('userdata'); 
     let parsedData: any = null;
@@ -59,6 +61,11 @@ export class ResultadosComponent {
     } else { 
       console.error('No se encontraron datos del usuario en sessionStorage'); 
     }
+
+    
+
+
+      
 
 
       const userQuery = {
@@ -78,49 +85,99 @@ export class ResultadosComponent {
         }
       }
 
+      
+      
+      /** 
+       try {
+        const success = await this.userService.createUser(this.nombre.value, this.correo.value, this.role);
+        const userId = this.userService.getUserId();
+        if (success !== null) {
+          sessionStorage.setItem('userdata', JSON.stringify({
+            userId: userId,
+            nombre: this.nombre.value,
+            correo: this.correo.value,
+            role: this.role,
+            }));
+            this.router.navigate(['/tarjetas']);
+            } 
+            
+            } catch (error) {
+              console.error('Error al crear el usuario ', error);
+              }
+              }
+              
+              */
+             
+             //AQUUI EMPIEZA EL NUEVOI CÓDIGO 001
+             
+     // Verificar si todos los datos están presentes
+     
+     
+     try{
+       const responseUserQueryEntity = await this.userQueryService.createReport(userQuery);  
+ 
+       if(responseUserQueryEntity !== null){
+        sessionStorage.setItem('userQueryData', JSON.stringify({
+          userQueryId: responseUserQueryEntity.id,
+          query: userQuery.query,
+          queryTime: userQuery.queryTime,
+          environmentType1: userQuery.environmentType1,
+          climateType2: userQuery.climateType2,
+          accommodationType3: userQuery.accommodationType3,
+          activityType4: userQuery.activityType4,
+          stayDuration: userQuery.stayDuration,
+          ageRange: userQuery.ageRange,
+          user: userQuery.user,
+        }));
+       }
 
-      //AQUUI EMPIEZA EL NUEVOI CÓDIGO 001
+       const destino = {
+         pDestino: this.destinoService.respuestasSer[0],
+         pClima: this.destinoService.respuestasSer[1],
+         pActividad: this.destinoService.respuestasSer[2],
+         pAlojamiento: this.destinoService.respuestasSer[3],
+         pDuracion: this.destinoService.respuestasSer[4],
+         pRangoEdad: this.destinoService.respuestasSer[5],
+         user: {id: parsedData.userId},
+         userQuerysModel: { id: responseUserQueryEntity.id }
+        };
 
-   // Verificar si todos los datos están presentes
-   if (this.areUserQueryDataComplete(userQuery)) {
-    this.userQueryService.createReport(userQuery)
-      .then((response) => {
-        this.destinoService.destinoA = response.destinoA;
-        this.destinoService.destinoE = response.destinoE;
-        sessionStorage.setItem('destinoAmerica', response.destinoA);
-        sessionStorage.setItem('destinoEuropa', response.destinoE);
-        console.log('Destino A:', this.destinoService.destinoA);
-        console.log('Destino E:', this.destinoService.destinoE);
-      })
-      .catch((error) => {
-        console.error('Error al enviar destino:', error);
-      });
+        console.log('respuestas de Destino:', destino);
+       
+      
+          const destinoresponse =  await this.destinoService.sendDestinity('/create', destino);
 
-    if (this.destinoService.destinoA == '') {
-      this.destinoService.destinoA = 'Bora Bora';
-      this.destinoService.destinoE = 'Dubái';
+            
+            if (destinoresponse ){
+              console.log('Destino creado con éxito:', destinoresponse);
+
+            }else{
+              console.error('Error al recibir datos de DestinoModel:', destinoresponse);
+            }
+
+              this.destinoService.destinoAmerica = destinoresponse.destinoAmerica;
+              this.destinoService.destinoEuropa = destinoresponse.destinoEuropa;
+              sessionStorage.setItem('destinoAmerica', destinoresponse.destinoAmerica);
+              sessionStorage.setItem('destinoEuropa', destinoresponse.destinoEuropa);
+              sessionStorage.setItem("destinoId", destinoresponse.id);
+              
+              console.log('Destino A:', this.destinoService.destinoAmerica);
+              console.log('Destino E:', this.destinoService.destinoEuropa);
+              console.log('Destino ID:', sessionStorage.getItem("destinoId"));
+            
+                this.router.navigate(['/tarjetas']);
+        
+          }
+          catch (error) {
+            console.error('Error al crear el reporte o destino:', error);
+        }
     }
-  } else {
-    console.error('Faltan datos en userQuery:', userQuery);
   }
-  }
+          
 
 
-areUserQueryDataComplete(userQuery: any): boolean {
-return userQuery.query &&
-     userQuery.queryTime &&
-     userQuery.environmentType1 &&
-     userQuery.climateType2 &&
-     userQuery.accommodationType3 &&
-     userQuery.activityType4 &&
-     userQuery.stayDuration &&
-     userQuery.ageRange &&
-     userQuery.user &&
-     userQuery.user.id &&
-     userQuery.user.name &&
-     userQuery.user.email &&
-     userQuery.user.role;
-}
+
+  
 
 
 
@@ -174,4 +231,3 @@ return userQuery.query &&
 }
 */
 
-}
