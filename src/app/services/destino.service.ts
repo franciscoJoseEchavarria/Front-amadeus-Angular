@@ -1,5 +1,6 @@
   import {Injectable} from '@angular/core';
   import axios, { AxiosInstance } from 'axios';
+import { Session } from 'inspector';
 
   @Injectable({
     providedIn: 'root',
@@ -66,10 +67,12 @@
      *   console.error('Error al obtener los datos', error);
      * }
      */
-    async getDestinity(endpoint: string): Promise<any> {
+
+
+    async getDestinity(endpoint: string, params: {destinoAmerica : string , destinoEuropa: string }  ): Promise<any> {
       try {
         const fullUrl = `${this.apiURL}${endpoint}`;              
-        const response = await this.axiosClient.get(endpoint);
+        const response = await this.axiosClient.get( endpoint, { params } );
         return response.data;
       } catch (error) {
         console.error('Error', error);

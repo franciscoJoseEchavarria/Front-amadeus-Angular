@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { DetallesDestino } from '@services/DetallesDestino';
 
 @Component({
   selector: 'app-destino',
@@ -11,9 +12,10 @@ import { NgIf } from '@angular/common';
   styleUrl: './destino.component.css',
 })
 export class DestinoComponent {
-  constructor(public destinoService: DestinoService) {}
+  constructor(public destinoService: DestinoService, public detallesDestino : DetallesDestino) {}
 
   control: boolean = true;
+
 
   destinos: any[] = [];
   america: any[] = [];
@@ -22,7 +24,7 @@ export class DestinoComponent {
   ngOnInit(): void {
     setTimeout(() => {
       this.destino();
-    }, 5);
+    }, 1000);
   }
 
   destino() {
@@ -30,30 +32,43 @@ export class DestinoComponent {
       ? (this.control = false)
       : (this.control = true);
 
+    const id = parseInt(sessionStorage.getItem('destinoId') || '0');
 
-//voy aca FRANCISCO ECHAVARRÍA
+    const ids = [(id *2-1).toString(), (id*2).toString()];
+
+    
+
+    const params = {
+      destinoAmerica: sessionStorage.getItem('destinoAmerica') || '',
+      destinoEuropa: sessionStorage.getItem('destinoEuropa') || '',
+    };
 
 
-       
-  
-
-    this.destinoService
-
-  
-      .getDestinity(
-        `/encontrar/${sessionStorage.getItem("destinoId")}${sessionStorage.getItem(
-          'destinoAmerica'
-        )}/${sessionStorage.getItem('destinoEuropa')}`
-      )
+    
+    this.detallesDestino.getMultipleDetallesDestinos(ids)
+        
+    .subscribe((response) => {
       
-      .then((response) => {
-        this.destinos = response;
+        
+        console.log('Respuesta de getMultipleDestino', response);
+        
+        this.destinos = [
+          { nombreDestino: response[0].nombreDestino, img: response[0].img, pais: response[0].pais, 
+            idioma: response[0].idioma, lugarImperdible: response[0].lugarImperdible, continente: 'América' },
+          { 
+            nombreDestino: response[1].nombreDestino, img: response[1].img, pais: response[1].pais, 
+            idioma: response[1].idioma, lugarImperdible: response[1].lugarImperdible, 
+            continente: response[1].nombreDestino === "Dubaí" ? 'Asia' : 'Europa'
+          }
+        ];
+
         this.filtrarDestinos();
-        console.log(response);
-      })
-      .catch((error) => {
+        console.log(this.filtrarDestinos());
+      }),
+      
+      (error: any) => {
         console.error('Error', error);
-      });
+      };
   }
 
   filtrarDestinos(): void {
@@ -64,7 +79,18 @@ export class DestinoComponent {
       (destino) =>
         destino.continente === 'Europa' || destino.continente === 'Asia'
     );
+    console.log("estos son los datos atrapados en filtrar destino.America: ",this.america);
+    console.log("estos son los datos atrapados en filtrar destino.America: ",this.europa);
   }
+
+  
+
+
+
+
+
+
 }
+
 
 

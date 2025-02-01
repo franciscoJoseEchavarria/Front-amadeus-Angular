@@ -111,18 +111,19 @@
 }
 
 .opcion__imagen{
-    height: 60%;
-    margin-left: 10%;
-    margin-right: 10%;
+    height: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
     position: relative;
+    width: 90%;
 }
 
 .opcion__imagen img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
   object-fit: cover;
-  width: 900px;
-  height: 900px;
+  width: 800px;
+  height: 800px;
 }
 
 .overlay {

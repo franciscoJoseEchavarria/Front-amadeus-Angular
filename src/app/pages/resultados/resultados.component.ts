@@ -3,6 +3,7 @@ import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { UserQueryService } from '@services/userQuery.service';
 import { parse } from 'path';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resultados',
@@ -12,8 +13,10 @@ import { parse } from 'path';
   styleUrl: './resultados.component.css',
 })
 export class ResultadosComponent {
-  router: any;
-  constructor(public destinoService: DestinoService, public userQueryService : UserQueryService) {}
+  
+  constructor(public destinoService: DestinoService, 
+    public userQueryService : UserQueryService,
+    private router: Router) {}
 
   destinoAmerica = '';
   destinoEuropa = '';
@@ -132,18 +135,17 @@ export class ResultadosComponent {
        }
 
        const destino = {
-         pDestino: this.destinoService.respuestasSer[0],
-         pClima: this.destinoService.respuestasSer[1],
-         pActividad: this.destinoService.respuestasSer[2],
-         pAlojamiento: this.destinoService.respuestasSer[3],
-         pDuracion: this.destinoService.respuestasSer[4],
-         pRangoEdad: this.destinoService.respuestasSer[5],
+         pDestino : this.Destino,
+         pClima: this.Clima,
+         pActividad: this.Actividad,
+         pAlojamiento: this.Alojamiento,
+         pDuracion: this.Viaje,
+         pRangoEdad: this.Edad,
          user: {id: parsedData.userId},
          userQuerysModel: { id: responseUserQueryEntity.id }
         };
 
-        console.log('respuestas de Destino:', destino);
-       
+        console.log('Destino enviado:', JSON.stringify(destino));
       
           const destinoresponse =  await this.destinoService.sendDestinity('/create', destino);
 
@@ -160,12 +162,12 @@ export class ResultadosComponent {
               sessionStorage.setItem('destinoAmerica', destinoresponse.destinoAmerica);
               sessionStorage.setItem('destinoEuropa', destinoresponse.destinoEuropa);
               sessionStorage.setItem("destinoId", destinoresponse.id);
-              
+              console.log( "destino: " , destino);
               console.log('Destino A:', this.destinoService.destinoAmerica);
               console.log('Destino E:', this.destinoService.destinoEuropa);
-              console.log('Destino ID:', sessionStorage.getItem("destinoId"));
+              
             
-                this.router.navigate(['/tarjetas']);
+                this.router.navigate(['/destino']);
         
           }
           catch (error) {
