@@ -1,142 +1,177 @@
-.padre{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    width: 100%;
-    height: 90vh;
-    background-color: var( --colorBand-medium);
+/* Asegúrate de que html y body ocupen el 100% de la altura de la ventana gráfica */
+
+
+
+
+/* Estilos para el contenedor principal */
+.padre {
+    display: flex; /* Define un contenedor flex */
+    flex-direction: row; /* Los elementos hijos se colocan en una fila horizontal */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    
+    width: 100%; /* Ancho completo del contenedor */
+    height: 100%; /* Altura del 90% de la altura de la ventana gráfica */
+    background-color: var(--colorBand-medium); /* Usa la variable CSS para el color de fondo */
 }
 
-.container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-    padding: 5px;
-    width: 100%;
-    background-color: #000835;
-}
-
-.play{
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    margin: 5px;
-    padding: 5px;
-    width: 100%;
-    height: 50vh;
-    background-color: var(--parrafo-color);
-    position: relative;
-    background: url(../../../assets/img/tiera.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.play:hover{
-    opacity: 0.9;
-    cursor: pointer;
-}
-
-/* .play img{
-    width: 50%;
+/* Estilos para el contenedor secundario */
+.container {
+    display: flex; /* Define un contenedor flex */
+    flex-direction: row; /* Los elementos hijos se colocan en una fila horizontal */
     height: 100%;
-    object-fit: contain;
-} */
-
-.play button{
-    margin: 5px;
-    padding: 5px;
-    background-color: var(--main-color);
-    color: var(--white-color);
-    border: none;
-    border-radius: 5px;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+     /* Ancho completo del contenedor */
+    background-color: #000835; /* Color de fondo específico */
 }
 
-.play button:hover{
-    background-color: var(--parrafo-color);
-}
-
-
-.nosotros{
-    display: flex;
-    flex-direction: column;
+/* Estilos para la sección de reproducción */
+.play {
+    display: flex; /* Define un contenedor flex */
+    justify-content: center; /* Alinea los elementos al final del contenedor */
+    align-items: center; /* Centra los elementos horizontalmente */
+    width: 60%; /* Ancho completo del contenedor */
+    height: 100%; /* Altura del 50% de la altura de la ventana gráfica */
+    background-color: var(--parrafo-color); /* Usa la variable CSS para el color de fondo */
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 10%;
-    margin: 5%;
-    padding: 15px;
-    width: 100%;
-    height: 50vh;
-    background-color: var(--parrafo-color);
-    color: #fff
+    }
+
+.play img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 50%; /* Ancho del 100% del contenedor */
+    height: auto; /* Altura del 100% del contenedor */
+    object-fit: cover;
+    border-radius: 20px ; /* Bordes redondeados en la parte superior */
+    justify-content: center;
+    margin-top: -60px;
 }
 
-p{
-    text-align: justify;
+/* Estilos para la sección de reproducción al pasar el ratón por encima */
+.play:hover {
+    opacity: 0.5; /* Cambia la opacidad al pasar el ratón por encima */
+    cursor: pointer; /* Cambia el cursor a un puntero */
 }
-@media screen and (max-width: 730px){
 
-    header nav{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        background-color: var(--white-color);
-        top: 0;
-        width: 100%;
-        border-bottom: 1px solid var(--parrafo-color);
+/* Estilos para los botones dentro de la sección de reproducción */
+.play button {
+    margin: 5px; /* Añade un margen de 5px */
+    padding: 5px; /* Añade un relleno de 5px */
+    background-color: var(--main-color); /* Usa la variable CSS para el color de fondo */
+    color: var(--white-color); /* Usa la variable CSS para el color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados con un radio de 5px */
+}
+
+/* Estilos para los botones dentro de la sección de reproducción al pasar el ratón por encima */
+.play button:hover {
+    background-color: var(--parrafo-color); /* Cambia el color de fondo al pasar el ratón por encima */
+}
+
+/* Estilos para la sección "nosotros" */
+.nosotros {
+    display: flex; /* Define un contenedor flex */
+    flex-direction: column; /* Los elementos hijos se colocan en una columna vertical */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    text-align: center; /* Centra el texto */
+    gap: 20%; /* Añade un espacio entre los elementos */
+    width: auto; /* Ancho automático */
+   
+     /* Ancho completo del contenedor */
+    height: 90%; /* Altura del 50% de la altura de la ventana gráfica */
+    background-color: var(--parrafo-color); /* Usa la variable CSS para el color de fondo */
+    color: #fff; /* Color del texto blanco */
+    margin-top: -60px;
+
+
+}
+
+h1 {
+    font-size: 2em; /* Tamaño de fuente de 2.5em */
+    margin: 10px; /* Añade un margen de 10px */
+}
+
+/* Estilos para los párrafos */
+p {
+    text-align: justify; /* Justifica el texto */
+    width: 80%; /* Ancho del 80% del contenedor */
+    font-size: 1.0em; /* Tamaño de fuente de 1.5em */
+}
+
+h2 strong {
+    font-weight: bold; /* Asegura que el texto esté en negrita */
+    cursor: pointer; /* Cambia el cursor a un puntero */
+    
+}
+
+h2 strong:hover {
+    color: var(--color08); /* Cambia el color del texto al pasar el ratón por encima */
+    background-color: white; /* Cambia el color de fondo al pasar el ratón por encima */
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+/* Estilos responsivos para pantallas con un ancho máximo de 730px */
+@media screen and (max-width: 730px) {
+    header nav {
+        display: flex; /* Define un contenedor flex */
+        flex-direction: column; /* Los elementos hijos se colocan en una columna vertical */
+        justify-content: center; /* Centra los elementos horizontalmente */
+        background-color: var(--white-color); /* Usa la variable CSS para el color de fondo */
+        top: 0; /* Posiciona el contenedor en la parte superior */
+        width: 100%; /* Ancho completo del contenedor */
+        border-bottom: 1px solid var(--parrafo-color); /* Añade un borde inferior */
     }
 
-    .nav__logo{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 5px;
+    .nav__logo {
+        display: flex; /* Define un contenedor flex */
+        flex-direction: row; /* Los elementos hijos se colocan en una fila horizontal */
+        justify-content: center; /* Centra los elementos horizontalmente */
+        align-items: center; /* Centra los elementos verticalmente */
+        margin: 5px; /* Añade un margen de 5px */
     }
 
-    .nav__lista{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 5px;
+    .nav__lista {
+        display: flex; /* Define un contenedor flex */
+        flex-direction: column; /* Los elementos hijos se colocan en una columna vertical */
+        justify-content: center; /* Centra los elementos horizontalmente */
+        align-items: center; /* Centra los elementos verticalmente */
+        margin: 5px; /* Añade un margen de 5px */
     }
 
-    .padre{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 5px;
-        width: 100%;
-        height: 90vh;
-        background-color: var(--main-color);
+    .padre {
+        display: flex; /* Define un contenedor flex */
+        flex-direction: column; /* Los elementos hijos se colocan en una columna vertical */
+        justify-content: center; /* Centra los elementos horizontalmente */
+        align-items: center; /* Centra los elementos verticalmente */
+        padding: 5px; /* Añade un relleno de 5px */
+        width: 100%; /* Ancho completo del contenedor */
+        height: 90vh; /* Altura del 90% de la altura de la ventana gráfica */
+        background-color: var(--main-color); /* Usa la variable CSS para el color de fondo */
     }
 
-
-    .container{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 5px;
-        padding: 5px;
-        width: 100%;
+    .container {
+        display: flex; /* Define un contenedor flex */
+        flex-direction: column; /* Los elementos hijos se colocan en una columna vertical */
+        justify-content: center; /* Centra los elementos horizontalmente */
+        align-items: center; /* Centra los elementos verticalmente */
+        margin: 5px; /* Añade un margen de 5px */
+        padding: 5px; /* Añade un relleno de 5px */
+        width: 100%; /* Ancho completo del contenedor */
     }
 
-    .container img{
-        width: 50%;
-        height: 100%;
-        object-fit: contain;
+    .container img {
+        width: 50%; /* Ancho del 50% del contenedor */
+        height: 100%; /* Altura completa del contenedor */
+        object-fit: contain; /* Ajusta la imagen para que quepa dentro del contenedor */
     }
 
-    .play{
-        height: 35vh;
+    .play {
+        height: 35vh; /* Altura del 35% de la altura de la ventana gráfica */
     }
 }
