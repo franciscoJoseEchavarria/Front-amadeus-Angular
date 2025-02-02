@@ -1,8 +1,9 @@
+
 .nav{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: var(--colorBand-medium) ;
     /* position: fixed; */
     top: 0;
     width: 100%;
@@ -38,6 +39,7 @@
 .nav__lista li{
     text-decoration: none;
     list-style: none;
+    padding: 15px;
 }
 
 .nav__lista li a {
@@ -45,14 +47,20 @@
     color: var(--parrafo-color);
     font-size: 1.25em;
     margin: 5px;
-    padding: 5px;
+    padding: 2px;
+    border: 2px solid transparent;
+
 
 }
 
 
 .nav__lista li a:hover{
-    background-color:#c5d5f9;
+    background-color:var(--colorBand-dark);
     padding: 2px;
+    margin: 5px;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
 }
 
 @media screen and (max-width: 730px){
