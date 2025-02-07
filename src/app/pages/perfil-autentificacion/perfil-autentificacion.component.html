@@ -1,0 +1,65 @@
+<body class="container">
+    <!--  -->
+    <form class="container__main">
+        <!-- Slideshow container -->
+        <div class="container__main__card">
+            <!--  -->
+            <section class="container__main__card__avatar">
+                  <!-- Se referencia SlidesElement para podr utilizan en la etiqueya viewChilder -->
+                <div *ngIf="selectedRole === 'usuario'">
+                    <div *ngFor="let img of usuarioimages; let i = index" #slidesElements class="container__main__card__avatar--img fade">
+                        <img [src]="img" width="100%">
+                    </div>
+                </div>
+                <div *ngIf="selectedRole === 'administrativo'">
+                    <div *ngFor="let img of administrativoimages; let i= index" #slidesElements class="container__main__card__avatar--img fade">
+                        <img [src]="img"   width="100%">
+                    </div>
+                </div>
+
+            </section>
+            
+            <section class="container__main__card__select">
+                <!--  Previous button  -->
+                <a (click)="diapositivaAtras()" class="prev" >&#10094;</a>
+                <!--  The dots/circles  -->
+                    <div class="container__main__card__dot">
+                        <!--  Cada elemento se referencia con #dotElement para poder ser usado en el
+                                ViewChildren dentro del Controlador y así manipular los elementos -->
+                                
+                        <span #dotElement class="dot" (click)="currentSlide(1)"></span>
+                        <span #dotElement class="dot" (click)="currentSlide(2)"></span>
+                        <span #dotElement class="dot" (click)="currentSlide(3)"></span>
+                        <span #dotElement class="dot" (click)="currentSlide(4)"></span> 
+                    </div>
+                <!--  Next button  -->
+                <a (click)="diapositivaSiguiente()" class="next" > &#10095;</a>
+            </section>
+            
+            <section class="container__main__card__data">
+                <h1 class="titulo-registrate">REGISTRATE</h1>
+                <input class="container__main__card__data--input" type="text" placeholder="Nombre">
+                <input class="container__main__card__data--input" type="email" placeholder="Correo electrónico">
+                <label class="container__main__card__data--alert"></label>
+                <div class="contenedor-botones-1">
+                    <div class="contenedro-botones-1-1">    
+                        <input class= "botones-1-1-1" type="radio" id="usuario" name="role" (change)="btnCambioUA('usuario')"> 
+                        <label class="botones-1-1-label"  for="usuario">Usuario</label>
+                    </div>    
+                    <div class="contenedro-botones-1-1">    
+                        <input class= "botones-1-1-1" type="radio" id="administrativo" name="role"  (change)="btnCambioUA('administrativo')">
+                        <label class="botones-1-1-label" for="administrativo">administrativo</label>
+                    </div> 
+                </div>
+                <div class="container__main__card__data--personalData">
+                    <input type="checkbox" name="data-accepted" id="data-accepted" >
+                    <label class="container__main__card__data--checkbox" for="data-accepted"> Acepto los <a href="https://amadeus.com/es/politicas/privacy-policy" target="_blank">términos y condiciones</a> de la política de protección de datos.</label>
+                </div>
+                
+                
+                <button class="container__main__card__data--button" type="button" routerLink="/tarjetas">¡Próxima aventura!</button>
+                <!-- <button class="buttonBG--dark " type="button">Próxima aventura</button> -->
+            </section>
+        </div> 
+    </form>
+</body>

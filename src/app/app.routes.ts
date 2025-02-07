@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
+
 import path from 'node:path';
+import { AppComponent } from './app.component';
 import { IndexComponent } from './pages/index/index.component';
 import { DestinoComponent } from './pages/destino/destino.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
@@ -9,6 +11,10 @@ import { ResultadosComponent } from './pages/resultados/resultados.component';
 import { TarjetasComponent } from './pages/tarjetas/tarjetas.component';
 import { Component } from '@angular/core';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { PerfilAutentificacionComponent } from '@pages/perfil-autentificacion/perfil-autentificacion.component';
+
+
+
 
 export const routes: Routes = [
   { path: 'index', component: IndexComponent },
@@ -19,5 +25,6 @@ export const routes: Routes = [
   { path: 'tarjetas', component: TarjetasComponent },
   { path: 'planes', component: PlanesComponent },
   { path: 'reports', component: ReportsComponent },
+  {path: 'perfil-autentificacion', component: PerfilAutentificacionComponent},
   { path: '', redirectTo: 'index', pathMatch: 'full' },
 ];

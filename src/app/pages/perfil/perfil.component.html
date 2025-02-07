@@ -5,7 +5,7 @@
         <div class="container__main__card">
             <!--  -->
             <section class="container__main__card__avatar">
-                <!-- Full-width images with number and caption text -->
+                <!-- Se referencia SlidesElement para podr utilizan en la etiqueya viewChilder -->
                 <div #slidesElements class="container__main__card__avatar--img fade">
                     <img src="../../../assets/img/img-avatar/ava11.png" width="100%">
                 </div>
@@ -50,6 +50,9 @@
                     <label class="container__main__card__data--checkbox" for="data-accepted"> Acepto los <a href="https://amadeus.com/es/politicas/privacy-policy" target="_blank">términos y condiciones</a> de la política de protección de datos.</label>
                 </div>
                 
+                <button routerLink = "/perfil-autentificacion">
+                    Registro de usuario
+                </button>
                 
                 <button class="container__main__card__data--button" type="button" (click)="datosUsuario()" routerLink="/tarjetas" [disabled]="controlBoton">¡Próxima aventura!</button>
                 <!-- <button class="buttonBG--dark " type="button">Próxima aventura</button> -->
