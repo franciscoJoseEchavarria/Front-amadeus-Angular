@@ -47,18 +47,6 @@ export class TarjetasComponent {
   }
 
 
-/** 
-  ngOnInit(): void {
-    // Obtener datos del usuario desde sessionStorage
-    const userDataString = sessionStorage.getItem('userdata');
-    if (userDataString) {
-      this.userData = JSON.parse(userDataString);
-      console.log('Datos del usuario:', this.userData);
-    } else {
-      console.error('No se encontraron datos del usuario en sessionStorage');
-    }
-  }
-*/
   
   indice = this.destinoService.indice;
   opcSelect: String = '';

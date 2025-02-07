@@ -1,23 +1,44 @@
 // Importamos cosas necesarias de Angular
 import { Component, OnInit, QueryList, ViewChild, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+
 
 // Decorador que define este archivo como un componente de Angular
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+export function minLengthValidator(minLength: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control.value && control.value.length < minLength) {
+      return { minLength: true };
+    }
+    return null;
+  };
+}
+
 @Component({
   selector: 'app-perfil-autentificacion', // Nombre del componente que se usará en el HTML
   standalone: true, // Indica que este componente puede funcionar por sí solo
   templateUrl: './perfil-autentificacion.component.html', // Archivo HTML asociado a este componente
   styleUrls: ['./perfil-autentificacion.component.css'], // Archivo CSS asociado a este componente
-  imports: [CommonModule] // Importa módulos necesarios; sirve para utiliza los ng if, ng for, etc.
+  imports: [CommonModule, ReactiveFormsModule, RouterModule] // Importa módulos necesarios; sirve para utiliza los ng if, ng for, etc.
 })
+
+
 
 
 export class PerfilAutentificacionComponent implements OnInit, AfterViewInit {
   @ViewChildren("slidesElements") slidesElements!: QueryList<ElementRef>; // Elementos de las diapositivas
   @ViewChildren("dotElement") dotElements!: QueryList<ElementRef>; // Elementos de los puntos de navegación
+  myForm!: FormGroup;
+  
 
-  DiaposivaCurrenSlide: number =1;
+  name: string = ''; // Variable que almacena el nombre
+  role: string = ''; // Variable que almacena el rol
+  email: string = ''; // Variable que almacena el correo electrónico
+  errorMessage: string | null=null ; // Variable que almacena el mensaje de error);
+  
 
   selectedRole: string = 'usuario'; // Variable que almacena el rol seleccionado
 
@@ -35,8 +56,15 @@ export class PerfilAutentificacionComponent implements OnInit, AfterViewInit {
       "../../../assets/img/img-avatar/ava24.png"]
       
       dots: number[] = [1, 2, 3, 4];
+
       
-      constructor() { }
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.myForm = this.fb.group({
+      name: ['', [Validators.required, minLengthValidator(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      role: ['usuario', Validators.required]
+    });
+  }
     
       // Método que se ejecuta cuando el componente se inicializa
   ngOnInit(): void {      
@@ -111,4 +139,31 @@ export class PerfilAutentificacionComponent implements OnInit, AfterViewInit {
     this.SelecciónTipoUserAdministrativo()
   }
 
+
+
+  
+  showErrorMessage(): void {
+    this.errorMessage = 'El nombre debe tener al menos 3 caracteres.';
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 5000);
+  }
+  
+  onSubmit(): void {
+    if (this.myForm.valid) {
+      const { name, email, role } = this.myForm.value;
+      console.log('Nombre:', name);
+      console.log('Correo:', email);
+      console.log('Rol:', role);
+      sessionStorage.setItem('userdata', JSON.stringify({
+        nombre: name,
+        correo: email,
+        role: role
+      }));
+      this.router.navigate(["/tarjetas"])
+      
+    }else {
+      this.showErrorMessage();
+    }
+  }
 }

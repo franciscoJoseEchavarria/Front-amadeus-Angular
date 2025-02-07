@@ -7,6 +7,7 @@
 }
 
 
+
 .container__main__card{
     display: grid;
 
@@ -142,6 +143,28 @@
     /* justify-content:space-evenly ; */
 }
 
+/* Contenedor del mensaje de error */
+.error-message {
+    position: relative; /* Permite posicionar el tooltip de forma absoluta respecto a este contenedor */
+    display: inline-block; /* Se ajusta al contenido, sin ocupar todo el ancho */
+  }
+  
+  /* Estilos para el tooltip de error */
+  .tooltip-text {
+    position: absolute;      /* Se saca del flujo normal, así no afecta la posición de otros elementos */
+    top: calc(100% + 5px);   /* Se posiciona justo debajo del contenedor (con 5px de separación) */
+    left: 0;
+    background-color: #f44336; /* Fondo rojo para alertar */
+    color: #fff;               /* Texto en blanco */
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;       /* Evita que el texto se divida en varias líneas */
+    z-index: 10;               /* Se asegura que aparezca por encima de otros elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 0.9em;
+  }
+  
+
 .dot {
     display: inline-block;
     background-color: var(--colorButtonFont-light);
@@ -257,6 +280,7 @@
         background-color: var(--colorButtonActive-dark);
     }
 }
+
 
 .container__main__card__info {
     display: inline-block;

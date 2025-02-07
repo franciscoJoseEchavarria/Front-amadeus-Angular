@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 
 
 import path from 'node:path';
@@ -28,3 +29,8 @@ export const routes: Routes = [
   {path: 'perfil-autentificacion', component: PerfilAutentificacionComponent},
   { path: '', redirectTo: 'index', pathMatch: 'full' },
 ];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
