@@ -64,7 +64,8 @@
                         <div 
                         *ngIf="myForm.get('contrasena')?.invalid && myForm.get('contrasena')?.touched" class="error-message">
                             <small class="tooltip-text" *ngIf="myForm.get('contrasena')?.errors?.['invalidPassword']">
-                                La contraseña debe tener al menos una mayúscula y un caracter especial (&#64;, #, $, etc).
+                                La contraseña debe tener al menos una <br>
+                                mayúscula y un caracter especial (&#64;, #, $, etc).
                             </small>
                         </div>
                     </div>
