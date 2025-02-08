@@ -17,6 +17,8 @@ export function minLengthValidator(minLength: number): ValidatorFn {
   };
 }
 
+
+
 @Component({
   selector: 'app-perfil-autentificacion', // Nombre del componente que se usará en el HTML
   standalone: true, // Indica que este componente puede funcionar por sí solo
@@ -32,6 +34,8 @@ export class PerfilAutentificacionComponent implements OnInit, AfterViewInit {
   @ViewChildren("slidesElements") slidesElements!: QueryList<ElementRef>; // Elementos de las diapositivas
   @ViewChildren("dotElement") dotElements!: QueryList<ElementRef>; // Elementos de los puntos de navegación
   myForm!: FormGroup;
+
+
   
 
   name: string = ''; // Variable que almacena el nombre
@@ -62,12 +66,24 @@ export class PerfilAutentificacionComponent implements OnInit, AfterViewInit {
     this.myForm = this.fb.group({
       name: ['', [Validators.required, minLengthValidator(3)]],
       email: ['', [Validators.required, Validators.email]],
-      role: ['usuario', Validators.required]
+      role: ['usuario', Validators.required],
+      contrasena: ["", []]
     });
   }
     
       // Método que se ejecuta cuando el componente se inicializa
   ngOnInit(): void {      
+    
+    // Actualizamos el validador de contraseña según el rol seleccionado
+    this.myForm.get('role')?.valueChanges.subscribe((role: string) => {
+      const contrasenaControl = this.myForm.get('contrasena');
+      if (role === 'administrativo') {
+        contrasenaControl?.setValidators([Validators.required, passwordValidator()]);
+      } else {
+        contrasenaControl?.clearValidators();
+      }
+      contrasenaControl?.updateValueAndValidity();
+    });
   }
 
   ngAfterViewInit() { 
@@ -151,14 +167,16 @@ export class PerfilAutentificacionComponent implements OnInit, AfterViewInit {
   
   onSubmit(): void {
     if (this.myForm.valid) {
-      const { name, email, role } = this.myForm.value;
+      const { name, email, role, contrasena } = this.myForm.value;
       console.log('Nombre:', name);
       console.log('Correo:', email);
       console.log('Rol:', role);
+      console.log('Contraseña:', contrasena);
       sessionStorage.setItem('userdata', JSON.stringify({
         nombre: name,
         correo: email,
-        role: role
+        role: role,
+        contrasena: contrasena
       }));
       this.router.navigate(["/tarjetas"])
       
@@ -166,4 +184,21 @@ export class PerfilAutentificacionComponent implements OnInit, AfterViewInit {
       this.showErrorMessage();
     }
   }
+
+}
+
+export function passwordValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value: string = control.value;
+    if (!value) {
+      return null;  // Si está vacío, se puede dejar que otro validador (p.ej. required) se encargue
+    }
+    const hasUpperCase = /[A-Z]/.test(value);
+    // Puedes ajustar el conjunto de caracteres especiales según tus necesidades
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+    if (!hasUpperCase || !hasSpecialChar) {
+      return { invalidPassword: true };
+    }
+    return null;
+  };
 }

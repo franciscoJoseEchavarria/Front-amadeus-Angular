@@ -53,12 +53,36 @@
                         El nombre debe tener al menos 3 caracteres.
                       </small>
                     </div>
-                  </div>
-                <input 
-                class="container__main__card__data--input" 
-                type="email" 
-                placeholder="Correo electrónico"
-                formControlName="email">
+                </div>
+                <div class="input-wrapper">
+                    <div *ngIf="myForm.get('role')?.value === 'administrativo'">
+                        <input 
+                        class="container__main__card__data--input" 
+                        type="password" 
+                        placeholder="Contraseña"
+                        formControlName="contrasena">
+                        <div 
+                        *ngIf="myForm.get('contrasena')?.invalid && myForm.get('contrasena')?.touched" class="error-message">
+                            <small class="tooltip-text" *ngIf="myForm.get('contrasena')?.errors?.['invalidPassword']">
+                                La contraseña debe tener al menos una mayúscula y un caracter especial (&#64;, #, $, etc).
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <input 
+                    class="container__main__card__data--input" 
+                    type="email" 
+                    placeholder="Correo electrónico"
+                    formControlName="email">
+                    <div 
+                      *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched" 
+                      class="error-message">
+                      <small class="tooltip-text" *ngIf="myForm.get('email')?.errors?.['email']">
+                       el email debe tener al menos "&#64;".
+                      </small>
+                    </div>
+                </div>
                 <label class="container__main__card__data--alert"></label>
                 <div class="contenedor-botones-1">
                     <div class="contenedro-botones-1-1">    
@@ -74,8 +98,6 @@
                     <input type="checkbox" name="data-accepted" id="data-accepted" >
                     <label class="container__main__card__data--checkbox" for="data-accepted"> Acepto los <a href="https://amadeus.com/es/politicas/privacy-policy" target="_blank">términos y condiciones</a> de la política de protección de datos.</label>
                 </div>
-                
-                
                 <button class="container__main__card__data--button" type="submit">¡Próxima aventura!</button>
                 <!-- <button class="buttonBG--dark " type="button">Próxima aventura</button> -->
             </section>
