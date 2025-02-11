@@ -32,9 +32,10 @@ Para instalar y configurar el proyecto localmente, sigue estos pasos:
     ```
 
 4. Ya dentro de las del VSC, descargar las dependencias que necesita el proyecto. En la terminal de VSC ejecuta el siguient comando:
-   
+
+   ```
    npm install
-  
+    ```  
 
 ## Despligue
 
