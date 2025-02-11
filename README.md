@@ -27,8 +27,9 @@ Para instalar y configurar el proyecto localmente, sigue estos pasos:
 3. abrir VSC con el comando code .
 
    cd "C:\Users\ROG STRIX\Desktop\reto-front-francisco\Amadeus-main (2)\Amadeus-main"  
-
+   ```
    code .
+    ```
 
 4. Ya dentro de las del VSC, descargar las dependencias que necesita el proyecto. En la terminal de VSC ejecuta el siguient comando:
    
