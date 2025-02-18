@@ -44,3 +44,7 @@ ng serve
 ```
 
 Luego, abre tu navegador y navega a http://localhost:4200/ una vez allí descubre tu viaje
+
+## A tener en cuenta
+
+El desarrollo de esta pagina toma datos directamente del backend de Java, por tal motivo, se debe descargar el programa de Java Amadeus y correr en conjunto con este. Los datos Destino, junto con las rutas de las imagenes son traidos directamente.
