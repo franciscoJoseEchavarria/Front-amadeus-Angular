@@ -32,10 +32,9 @@
   }
 
 .conteiner{
-    height: 80vh;
+    height: 100vh;
     width: 100%;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+   
     background-color: #000835;
     display: flex;
     flex-direction: column;
@@ -63,7 +62,7 @@
 .conteiner--opciones{
     display: flex;
     justify-content: space-evenly;
-    height: 75%;
+    height: 65%;
 
 }
 
@@ -81,7 +80,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;
+    width: 450px;
+    height: 450px;
     justify-content: space-between;
     background-color: #c5d5f9;
 
@@ -93,8 +93,8 @@
 @media screen and (max-width: 767px) {
 
   .opciones--opcion{
-    width: 75%;
-    height: 50%;
+    width: 65%;
+    height: 40%;
     justify-content: space-between;
     align-items: center;
     align-self: center;
@@ -111,24 +111,35 @@
 }
 
 .opcion__imagen{
-    height: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    display: flex;
+    height:  100%;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    width: 90%;
+    width: 100%;
+}
+
+
+/* Definir la animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .opcion__imagen img {
-  max-width: 90%;
-  max-height: 90%;
+  width: 90%;
   object-fit: cover;
-  width: 800px;
-  height: 800px;
+  height: 90%;
+  opacity: 0; /* Inicialmente invisible */
+  animation: fadeIn 3s ease-in-out forwards; /* Aplicar la animación */
 }
-
 .overlay {
   position: absolute;
-  bottom: 100%;
+  bottom: 50%;
   left: 0;
   right: 0;
   background-color: #000835;

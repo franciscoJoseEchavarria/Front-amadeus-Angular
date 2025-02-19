@@ -24,7 +24,7 @@ export class DestinoComponent {
   ngOnInit(): void {
     setTimeout(() => {
       this.destino();
-    }, 1000);
+    });
   }
 
   destino() {
