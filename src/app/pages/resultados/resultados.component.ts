@@ -88,33 +88,6 @@ export class ResultadosComponent {
         }
       }
 
-      
-      
-      /** 
-       try {
-        const success = await this.userService.createUser(this.nombre.value, this.correo.value, this.role);
-        const userId = this.userService.getUserId();
-        if (success !== null) {
-          sessionStorage.setItem('userdata', JSON.stringify({
-            userId: userId,
-            nombre: this.nombre.value,
-            correo: this.correo.value,
-            role: this.role,
-            }));
-            this.router.navigate(['/tarjetas']);
-            } 
-            
-            } catch (error) {
-              console.error('Error al crear el usuario ', error);
-              }
-              }
-              
-              */
-             
-             //AQUUI EMPIEZA EL NUEVOI CÓDIGO 001
-             
-     // Verificar si todos los datos están presentes
-     
      
      try{
        const responseUserQueryEntity = await this.userQueryService.createReport(userQuery);  
