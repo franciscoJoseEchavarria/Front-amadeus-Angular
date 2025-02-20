@@ -22,36 +22,23 @@ export class DestinoComponent {
   europa: any[] = [];
 
   ngOnInit(): void {
-    setTimeout(() => {
       this.destino();
-    });
   }
 
   destino() {
+
     sessionStorage.getItem('destinoAmerica') === 'Bora Bora'
       ? (this.control = false)
       : (this.control = true);
-
+     
     const id = parseInt(sessionStorage.getItem('destinoId') || '0');
-
     const ids = [(id *2-1).toString(), (id*2).toString()];
 
-    
-
-    const params = {
-      destinoAmerica: sessionStorage.getItem('destinoAmerica') || '',
-      destinoEuropa: sessionStorage.getItem('destinoEuropa') || '',
-    };
-
-
-    
+    console.log('Estos son los ids', ids);
+   
     this.detallesDestino.getMultipleDetallesDestinos(ids)
-        
-    .subscribe((response) => {
-      
-        
+    .subscribe((response) => {        
         console.log('Respuesta de getMultipleDestino', response);
-        
         this.destinos = [
           { nombreDestino: response[0].nombreDestino, img: response[0].img, pais: response[0].pais, 
             idioma: response[0].idioma, lugarImperdible: response[0].lugarImperdible, continente: 'América' },
@@ -61,11 +48,9 @@ export class DestinoComponent {
             continente: response[1].nombreDestino === "Dubaí" ? 'Asia' : 'Europa'
           }
         ];
-
         this.filtrarDestinos();
         console.log(this.filtrarDestinos());
       }),
-      
       (error: any) => {
         console.error('Error', error);
       };
@@ -80,7 +65,7 @@ export class DestinoComponent {
         destino.continente === 'Europa' || destino.continente === 'Asia'
     );
     console.log("estos son los datos atrapados en filtrar destino.America: ",this.america);
-    console.log("estos son los datos atrapados en filtrar destino.America: ",this.europa);
+    console.log("estos son los datos atrapados en filtrar destino.europa: ",this.europa);
   }
 
   
