@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { DetallesDestino } from '@services/DetallesDestino';
+import { DetallesDestinoService } from '@services/DetallesDestinoService';
 
 @Component({
   selector: 'app-destino',
@@ -12,7 +12,7 @@ import { DetallesDestino } from '@services/DetallesDestino';
   styleUrl: './destino.component.css',
 })
 export class DestinoComponent {
-  constructor(public destinoService: DestinoService, public detallesDestino : DetallesDestino) {}
+  constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService) {}
 
   control: boolean = true;
 
@@ -25,7 +25,7 @@ export class DestinoComponent {
       this.destino();
   }
 
-  destino() {
+  async destino() {
 
     sessionStorage.getItem('destinoAmerica') === 'Bora Bora'
       ? (this.control = false)
@@ -33,10 +33,10 @@ export class DestinoComponent {
      
     const id = parseInt(sessionStorage.getItem('destinoId') || '0');
     const ids = [(id *2-1).toString(), (id*2).toString()];
-
+    console.log('Estos son los ids', id);
     console.log('Estos son los ids', ids);
    
-    this.detallesDestino.getMultipleDetallesDestinos(ids)
+    this.detallesDestinoService.getMultipleDetallesDestinos(ids)
     .subscribe((response) => {        
         console.log('Respuesta de getMultipleDestino', response);
         this.destinos = [
@@ -67,14 +67,6 @@ export class DestinoComponent {
     console.log("estos son los datos atrapados en filtrar destino.America: ",this.america);
     console.log("estos son los datos atrapados en filtrar destino.europa: ",this.europa);
   }
-
-  
-
-
-
-
-
-
 }
 
 

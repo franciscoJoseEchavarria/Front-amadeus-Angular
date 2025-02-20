@@ -139,8 +139,9 @@ export class ResultadosComponent {
               console.log('Destino A:', this.destinoService.destinoAmerica);
               console.log('Destino E:', this.destinoService.destinoEuropa);
               
-            
-                this.router.navigate(['/destino']);
+              // Asegúrate de que sessionStorage se actualice antes de navegar
+              await new Promise(resolve => setTimeout(resolve, 100)); // Espera un poco para asegurar la actualización
+              this.router.navigate(['/destino']);
         
           }
           catch (error) {

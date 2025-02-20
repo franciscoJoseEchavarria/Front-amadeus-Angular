@@ -7,7 +7,7 @@ import { Observable, forkJoin } from 'rxjs';
     providedIn: 'root',
   }
   )
-  export class DetallesDestino {
+  export class DetallesDestinoService {
     private apiURL = 'http://localhost:8081/api/detallesdestinos';
     private axiosClient: AxiosInstance;
 
@@ -21,7 +21,8 @@ import { Observable, forkJoin } from 'rxjs';
 
     async getDetallesDestino(endpoint: string): Promise<any> {
       try {
-        const fullUrl = `${this.apiURL}${endpoint}`;              
+        const fullUrl = `${this.apiURL}${endpoint}`;    
+        console.log('Detalles DestinoService FullURl:', fullUrl);          
         const response = await this.axiosClient.get( endpoint);
         return response.data;
         console.log('Datos de la respuesta:', response.data);
