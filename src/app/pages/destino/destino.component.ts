@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  ChangeDetectorRef } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -12,7 +12,9 @@ import { DetallesDestinoService } from '@services/DetallesDestinoService';
   styleUrl: './destino.component.css',
 })
 export class DestinoComponent {
-  constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService) {}
+  constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   control: boolean = true;
 
@@ -27,16 +29,16 @@ export class DestinoComponent {
 
   async destino() {
 
+    console.log("aqui se imprime console log de prueba",sessionStorage.getItem('destinoAmerica'));
+
     sessionStorage.getItem('destinoAmerica') === 'Bora Bora'
       ? (this.control = false)
       : (this.control = true);
      
     const id = parseInt(sessionStorage.getItem('destinoId') || '0');
-    const ids = [(id *2-1).toString(), (id*2).toString()];
-    console.log('Estos son los ids', id);
-    console.log('Estos son los ids', ids);
+    console.log('Id del destino:', id);
    
-    this.detallesDestinoService.getMultipleDetallesDestinos(ids)
+    this.detallesDestinoService.getDetallesByDestinoId(id)
     .subscribe((response) => {        
         console.log('Respuesta de getMultipleDestino', response);
         this.destinos = [
@@ -50,6 +52,8 @@ export class DestinoComponent {
         ];
         this.filtrarDestinos();
         console.log(this.filtrarDestinos());
+        this.cdr.detectChanges(); // Forzar la detección de cambios
+        
       }),
       (error: any) => {
         console.error('Error', error);

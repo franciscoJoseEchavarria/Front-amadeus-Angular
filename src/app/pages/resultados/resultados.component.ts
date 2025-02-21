@@ -63,13 +63,7 @@ export class ResultadosComponent {
       } 
     } else { 
       console.error('No se encontraron datos del usuario en sessionStorage'); 
-    }
-
-    
-
-
-      
-
+    }   
 
       const userQuery = {
         query: 'tablaUserQuery',
@@ -88,12 +82,11 @@ export class ResultadosComponent {
         }
       }
 
-     
      try{
        const responseUserQueryEntity = await this.userQueryService.createReport(userQuery);  
  
        if(responseUserQueryEntity !== null){
-        sessionStorage.setItem('userQueryData', JSON.stringify({
+       await sessionStorage.setItem('userQueryData', JSON.stringify({
           userQueryId: responseUserQueryEntity.id,
           query: userQuery.query,
           queryTime: userQuery.queryTime,
@@ -129,24 +122,20 @@ export class ResultadosComponent {
             }else{
               console.error('Error al recibir datos de DestinoModel:', destinoresponse);
             }
-
-              this.destinoService.destinoAmerica = destinoresponse.destinoAmerica;
-              this.destinoService.destinoEuropa = destinoresponse.destinoEuropa;
-              sessionStorage.setItem('destinoAmerica', destinoresponse.destinoAmerica);
-              sessionStorage.setItem('destinoEuropa', destinoresponse.destinoEuropa);
-              sessionStorage.setItem("destinoId", destinoresponse.id);
-              console.log( "destino: " , destino);
-              console.log('Destino A:', this.destinoService.destinoAmerica);
-              console.log('Destino E:', this.destinoService.destinoEuropa);
+            
+              this.destinoService.destinoAmerica = await destinoresponse.destinoAmerica;
+              this.destinoService.destinoEuropa = await destinoresponse.destinoEuropa;
+              await sessionStorage.setItem('destinoAmerica', destinoresponse.destinoAmerica);
+              await sessionStorage.setItem('destinoEuropa', destinoresponse.destinoEuropa);
+              await sessionStorage.setItem("destinoId", destinoresponse.id);
+            
               
               // Asegúrate de que sessionStorage se actualice antes de navegar
-              await new Promise(resolve => setTimeout(resolve, 100)); // Espera un poco para asegurar la actualización
-              this.router.navigate(['/destino']);
-        
-          }
-          catch (error) {
-            console.error('Error al crear el reporte o destino:', error);
-        }
+              await this.router.navigate(['/destino']);
+            }
+            catch (error) {
+              console.error('Error al crear el reporte o destino:', error);
+            }
     }
   }
           

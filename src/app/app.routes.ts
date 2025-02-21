@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 
-import path from 'node:path';
+
 import { AppComponent } from './app.component';
 import { IndexComponent } from './pages/index/index.component';
 import { DestinoComponent } from './pages/destino/destino.component';
@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
