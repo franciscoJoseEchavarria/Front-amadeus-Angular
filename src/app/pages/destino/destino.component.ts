@@ -11,7 +11,7 @@ import { DetallesDestinoService } from '@services/DetallesDestinoService';
   templateUrl: './destino.component.html',
   styleUrl: './destino.component.css',
 })
-export class DestinoComponent {
+export class DestinoComponent implements OnInit {
   constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -24,52 +24,68 @@ export class DestinoComponent {
   europa: any[] = [];
 
   ngOnInit(): void {
-      this.destino();
+      this.obtenerDetalles();
   }
 
-  async destino() {
 
-    console.log("aqui se imprime console log de prueba",sessionStorage.getItem('destinoAmerica'));
-
-    sessionStorage.getItem('destinoAmerica') === 'Bora Bora'
-      ? (this.control = false)
-      : (this.control = true);
-     
-    const id = parseInt(sessionStorage.getItem('destinoId') || '0');
-    console.log('Id del destino:', id);
-   
-    this.detallesDestinoService.getDetallesByDestinoId(id)
-    .subscribe((response) => {        
-        console.log('Respuesta de getMultipleDestino', response);
-        this.destinos = [
-          { nombreDestino: response[0].nombreDestino, img: response[0].img, pais: response[0].pais, 
-            idioma: response[0].idioma, lugarImperdible: response[0].lugarImperdible, continente: 'América' },
-          { 
-            nombreDestino: response[1].nombreDestino, img: response[1].img, pais: response[1].pais, 
-            idioma: response[1].idioma, lugarImperdible: response[1].lugarImperdible, 
-            continente: response[1].nombreDestino === "Dubaí" ? 'Asia' : 'Europa'
+  // se utiliza retries para pasa la información y darle un refres para que carguen los datos, se debe mejorar esto en el backend para que la informacion persista y se pueda realizar.
+  obtenerDetalles(retries: number = 3): void {
+    // 1. Obtenemos el destinoId
+    const destinoId = Number(sessionStorage.getItem('destinoId'));
+    console.log('Id del destino:', destinoId);
+  
+    // 2. Validamos si es un id válido
+    if (!destinoId) {
+      console.error('No se encontró destinoId en sessionStorage');
+      return;
+    }
+  
+    // 3. Llamamos al servicio
+    this.detallesDestinoService.getDetallesByDestinoId(destinoId)
+      .subscribe(
+        (response) => {
+          if (response.length < 2) {
+            console.warn('No hay suficientes detalles, reintentando...');
+            if (retries > 0) {
+              // Reintenta después de 1 segundo
+              setTimeout(() => {
+                this.obtenerDetalles(retries - 1);
+              }, 1000);
+            } else {
+              console.error('No se pudieron obtener suficientes detalles después de varios intentos.');
+            }
+          } else {
+            console.log('Detalles del destino:', response);
+            // Procesamos y asignamos los datos a la variable destinos
+            this.destinos = response.map((detalle, index) => {
+              if (index === 0) {
+                return { ...detalle, continente: 'América' };
+              } else if (index === 1) {
+                return { ...detalle, continente: detalle.nombreDestino === 'Dubaí' ? 'Asia' : 'Europa' };
+              }
+              return detalle;
+            });
+            // Llamamos a filtrarDestinos para separar en america y europa/asia
+            this.filtrarDestinos();
+            this.cdr.detectChanges();
           }
-        ];
-        this.filtrarDestinos();
-        console.log(this.filtrarDestinos());
-        this.cdr.detectChanges(); // Forzar la detección de cambios
-        
-      }),
-      (error: any) => {
-        console.error('Error', error);
-      };
+        },
+        (error) => {
+          console.error('Error al obtener detalles:', error);
+        }
+      );
   }
+  
 
   filtrarDestinos(): void {
     this.america = this.destinos.filter(
       (destino) => destino.continente === 'América'
     );
     this.europa = this.destinos.filter(
-      (destino) =>
-        destino.continente === 'Europa' || destino.continente === 'Asia'
+      (destino) => destino.continente === 'Europa' || destino.continente === 'Asia'
     );
-    console.log("estos son los datos atrapados en filtrar destino.America: ",this.america);
-    console.log("estos son los datos atrapados en filtrar destino.europa: ",this.europa);
+    console.log('América:', this.america);
+    console.log('Europa o Asia:', this.europa);
   }
 }
 
