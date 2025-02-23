@@ -2,7 +2,6 @@
 
 
 
-
 /* Estilos para el contenedor principal */
 .padre {
     display: flex; /* Define un contenedor flex */
@@ -11,8 +10,9 @@
     align-items: center; /* Centra los elementos verticalmente */
     
     width: 100%; /* Ancho completo del contenedor */
-    height: 100%; /* Altura del 90% de la altura de la ventana gráfica */
+    height: 90vh; /* Altura del 90% de la altura de la ventana gráfica */
     background-color: var(--colorBand-medium); /* Usa la variable CSS para el color de fondo */
+    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 /* Estilos para el contenedor secundario */

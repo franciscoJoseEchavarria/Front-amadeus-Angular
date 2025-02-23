@@ -29,7 +29,7 @@ export class DestinoComponent implements OnInit {
 
 
   // se utiliza retries para pasa la información y darle un refres para que carguen los datos, se debe mejorar esto en el backend para que la informacion persista y se pueda realizar.
-  obtenerDetalles(retries: number = 3): void {
+  obtenerDetalles(retries: number = 5): void {
     // 1. Obtenemos el destinoId
     const destinoId = Number(sessionStorage.getItem('destinoId'));
     console.log('Id del destino:', destinoId);
