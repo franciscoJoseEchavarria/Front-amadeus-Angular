@@ -132,7 +132,7 @@ export class ResultadosComponent {
       sessionStorage.setItem('destinoId', destinoResponse.id.toString());
   
       // 6. Navegar a la página destino SOLO después de que los datos estén correctamente guardados
-      await this.router.navigate(['/destino']);
+      await this.router.navigate(['/destino', destinoResponse.id]);
       
     } catch (error) {
       console.error('Error al crear el reporte o destino:', error);

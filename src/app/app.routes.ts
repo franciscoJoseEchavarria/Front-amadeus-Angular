@@ -19,7 +19,7 @@ import { PerfilAutentificacionComponent } from '@pages/perfil-autentificacion/pe
 
 export const routes: Routes = [
   { path: 'index', component: IndexComponent },
-  { path: 'destino', component: DestinoComponent },
+  { path: 'destino/:id', component: DestinoComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'planes', component: PlanesComponent },
   { path: 'resultados', component: ResultadosComponent },

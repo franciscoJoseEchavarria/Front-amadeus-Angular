@@ -3,6 +3,7 @@ import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { DetallesDestinoService } from '@services/DetallesDestinoService';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-destino',
@@ -13,7 +14,8 @@ import { DetallesDestinoService } from '@services/DetallesDestinoService';
 })
 export class DestinoComponent implements OnInit {
   constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {}
 
   control: boolean = true;
@@ -24,9 +26,16 @@ export class DestinoComponent implements OnInit {
   europa: any[] = [];
 
   ngOnInit(): void {
-      this.obtenerDetalles();
-  }
+    // Lee el parámetro "id" de la ruta
+    const destinoId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('Id del destino (desde ruta):', destinoId);
 
+    if (!destinoId) {
+      console.error('No se encontró un destinoId válido en la URL');
+      return;
+    }
+    this.obtenerDetalles(destinoId);
+  }
 
   // se utiliza retries para pasa la información y darle un refres para que carguen los datos, se debe mejorar esto en el backend para que la informacion persista y se pueda realizar.
   obtenerDetalles(retries: number = 5): void {
