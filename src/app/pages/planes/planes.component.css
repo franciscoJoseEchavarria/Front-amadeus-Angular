@@ -54,6 +54,12 @@ img {
   color: #fff;
 }
 
+a {
+  color: #fff;
+}
+
+
+
 .container__hospedaje__opciones{
   display: flex;
   flex-direction: row;

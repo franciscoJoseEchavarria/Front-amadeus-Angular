@@ -13,6 +13,7 @@ export class PlanesComponent {
 
   constructor(public destinoService: DestinoService){}
 
+  destinoId =sessionStorage.getItem('destinoId');
   destino = this.destinoService.destinoAmerica;
   srcA = this.destinoService.srcA;
   srcE = this.destinoService.srcE;
