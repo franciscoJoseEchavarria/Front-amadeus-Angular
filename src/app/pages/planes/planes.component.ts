@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
+import { DestinoDataService } from '@services/DestinoDataService';
 
 @Component({
   selector: 'app-planes',
@@ -11,16 +12,20 @@ import { RouterLink } from '@angular/router';
 })
 export class PlanesComponent {
 
-  constructor(public destinoService: DestinoService){}
-
+  constructor(private destinoDataService: DestinoDataService
+    , private destinoService: DestinoService
+  ){}
+  selectedImage: string | undefined; // Declaras la propiedad
   destinoId =sessionStorage.getItem('destinoId');
   destino = this.destinoService.destinoAmerica;
   srcA = this.destinoService.srcA;
   srcE = this.destinoService.srcE;
 
-  // destino = "Playa del Carmen";
-  // srcA = "../../../assets/img/PlayaDelCarmen.jpg"
-
-
+  ngOnInit(){
+  this.destinoDataService.selectedImage$.subscribe((imageUrl) => {
+    this.selectedImage = imageUrl;
+    console.log("imagenen seleccionada", this.selectedImage);
+  });
+}
 
 }

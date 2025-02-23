@@ -1,16 +1,16 @@
 <main class="conteiner">
   <h1 class="conteiner__titulo">Tus Destinos:</h1>
 
-  <div [hidden]="control">
-    <h3 class="conteiner__titulo">
+  <div >
+    <h2 class="conteiner__titulo">
       Tus Gustos son bastante exóticos, te sugerimos los siguientes lugares:
-    </h3>
+    </h2>
   </div>
 
   <div class="conteiner--opciones">
     <section class="opciones--opcion">
       <div class="opcion__encabezado">
-        <h2 class="opcion__encabezado__nombre" (click)="obtenerDetalles()">
+        <h2 class="opcion__encabezado__nombre">
           Aventura en América
         </h2>
       </div>
@@ -66,7 +66,7 @@
       </div>
 
       <div class="opcion__link__item">
-        <a routerLink="/planes"
+        <a routerLink="/planes" (click)="selectRegion('America')"
           ><img src="../../../assets/img/paquete.png" alt=""
         /></a>
         <span class="tooltiptext">Explora tus opciones</span>
@@ -75,7 +75,7 @@
 
     <section class="opciones--opcion">
       <div class="opcion__encabezado">
-        <h2 class="opcion__encabezado__nombre">
+        <h2 class="opcion__encabezado__nombre" >
           Aventura en
           <ng-container
             *ngIf="europa[0]?.continente === 'Europa'; else showAsia"
@@ -133,7 +133,7 @@
       </div>
 
       <div class="opcion__link__item">
-        <a routerLink="/planes"
+        <a routerLink="/planes" (click)="selectRegion('Europe')"
           ><img src="../../../assets/img/paquete.png" alt=""
         /></a>
         <span class="tooltiptext">Explora tus opciones</span>

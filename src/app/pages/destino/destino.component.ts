@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { DetallesDestinoService } from '@services/DetallesDestinoService';
 import { ActivatedRoute } from '@angular/router';
+import { DestinoDataService } from '@services/DestinoDataService';  // Importación del servicio compartido
 
 @Component({
   selector: 'app-destino',
@@ -15,7 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 export class DestinoComponent implements OnInit {
   constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private destinoDataService: DestinoDataService  // Inyección del servicio compartido
   ) {}
 
   control: boolean = true;
@@ -38,7 +40,7 @@ export class DestinoComponent implements OnInit {
   }
 
   // se utiliza retries para pasa la información y darle un refres para que carguen los datos, se debe mejorar esto en el backend para que la informacion persista y se pueda realizar.
-  obtenerDetalles(retries: number = 5): void {
+   obtenerDetalles(retries: number = 5): void {
     // 1. Obtenemos el destinoId
     const destinoId = Number(sessionStorage.getItem('destinoId'));
     console.log('Id del destino:', destinoId);
@@ -66,6 +68,8 @@ export class DestinoComponent implements OnInit {
           } else {
             console.log('Detalles del destino:', response);
             // Procesamos y asignamos los datos a la variable destinos
+
+            //tomamos el response y lo mapeamos para agregarle el continente
             this.destinos = response.map((detalle, index) => {
               if (index === 0) {
                 return { ...detalle, continente: 'América' };
@@ -74,8 +78,10 @@ export class DestinoComponent implements OnInit {
               }
               return detalle;
             });
-            // Llamamos a filtrarDestinos para separar en america y europa/asia
+        
             this.filtrarDestinos();
+            
+        
             this.cdr.detectChanges();
           }
         },
@@ -85,7 +91,6 @@ export class DestinoComponent implements OnInit {
       );
   }
   
-
   filtrarDestinos(): void {
     this.america = this.destinos.filter(
       (destino) => destino.continente === 'América'
@@ -95,6 +100,16 @@ export class DestinoComponent implements OnInit {
     );
     console.log('América:', this.america);
     console.log('Europa o Asia:', this.europa);
+  }
+
+
+  // Método para actualizar la imagen seleccionada en el servicio compartido
+  selectRegion(region: string): void {
+    if (region === 'America' && this.america && this.america.length > 0) {
+      this.destinoDataService.setSelectedImage(this.america[0].img);
+    } else if (region === 'Europe' && this.europa && this.europa.length > 0) {
+      this.destinoDataService.setSelectedImage(this.europa[0].img);
+    }
   }
 }
 

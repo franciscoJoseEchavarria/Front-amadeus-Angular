@@ -1,14 +1,14 @@
-<body claas="container">
+<body class="container">
   <div class="conteiner__encabezado">
 
     <div class="opcion__link__item">
-      <a  routerLink="/destino/{{destinoId}}"><i class="fa-solid fa-arrow-left"></i> Volver a la pagina anterior</a>
+      <a  [routerLink]="['/destino', destinoId]"><i class="fa-solid fa-arrow-left"></i> Volver a la pagina anterior</a>
       <span class="tooltiptext">Volver a tus destino</span>
     </div>
 
     <h1 class="conteiner__encabezado__titulo">Destino seleccionado:</h1>
     <div class="conteiner__encabezado__imagen">
-      <img [src]="srcA" alt=""/>
+      <img [src]="selectedImage" alt="Imagen del destino"/>
     </div>
     <h2 class="conteiner__encabezado__nombre">{{destino}}</h2>
   </div>
