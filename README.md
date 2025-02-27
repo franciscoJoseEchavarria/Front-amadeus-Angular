@@ -1,5 +1,54 @@
 # Amadeus
 
+Amadeus is an Angular project designed to describe the trip you want to take.
+
+## Services and Components
+- **ReportsService**: Service added to make GET requests to the reports API using axios.
+
+## Installation
+
+To install and configure the project locally, follow these steps:
+
+1. Clone the repository into the desired folder:
+
+   Example: "C:\Users\ROG STRIX\Desktop\reto-front-francisco"
+   ```
+   cmd
+   git clone https://github.com/franciscoJoseEchavarria/frontend-amadeus.git
+   ```
+
+2. Navigate to the project directory in your local folder
+ ```
+cd "location of the project in your local folder"
+ ```
+
+3. Open VSC with the command code .
+```
+cd "C:\Users\ROG STRIX\Desktop\reto-front-francisco\Amadeus-main (2)\Amadeus-main"
+code .
+```
+
+4. Once inside VSC, download the dependencies needed for the project. In the VSC terminal, run the following command:
+```
+npm install
+```
+
+## Deployment
+Run the local server (default port localhost:4200)
+```
+ng serve
+```
+
+Then, open your browser and navigate to http://localhost:4200/ to discover your trip.
+
+# Important Note
+
+The development of this page takes data directly from the Java backend. Therefore, you need to download the Java Amadeus program and run it together with this project. The Destino data (from this Frontend) works with the backend-amadeus project:
+
+
+
+# Amadeus
+
 Amadeus es un proyecto de Angular diseñado para describir cual es el viaje que deseas realizar.
 
 ## Servicios y Componentes
