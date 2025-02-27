@@ -1,23 +1,26 @@
-import { Component, OnInit,  ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,  ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { DetallesDestinoService } from '@services/DetallesDestinoService';
 import { ActivatedRoute } from '@angular/router';
 import { DestinoDataService } from '@services/DestinoDataService';  // Importación del servicio compartido
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-destino',
   standalone: true,
   imports: [RouterLink, NgIf],
   templateUrl: './destino.component.html',
-  styleUrl: './destino.component.css',
+  styleUrls: ['./destino.component.css'],
 })
 export class DestinoComponent implements OnInit {
   constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private destinoDataService: DestinoDataService  // Inyección del servicio compartido
+    private destinoDataService: DestinoDataService,  // Inyección del servicio compartido
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   control: boolean = true;
@@ -41,6 +44,15 @@ export class DestinoComponent implements OnInit {
 
   // se utiliza retries para pasa la información y darle un refres para que carguen los datos, se debe mejorar esto en el backend para que la informacion persista y se pueda realizar.
    obtenerDetalles(retries: number = 5): void {
+
+    // Verificar que el código se ejecute en el navegador
+    if (!isPlatformBrowser(this.platformId)) {
+      console.warn('sessionStorage no está disponible en este entorno.');
+      return;
+    }
+    
+
+
     // 1. Obtenemos el destinoId
     const destinoId = Number(sessionStorage.getItem('destinoId'));
     console.log('Id del destino:', destinoId);
