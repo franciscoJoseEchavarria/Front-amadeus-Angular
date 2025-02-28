@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "WebApplication1.sln"
+    "dotnet.defaultSolution": "WebApplication1.sln",
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

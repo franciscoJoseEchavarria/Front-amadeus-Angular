@@ -55,6 +55,7 @@ export class DestinoComponent implements OnInit {
 
     // 1. Obtenemos el destinoId
     const destinoId = Number(sessionStorage.getItem('destinoId'));
+    
     console.log('Id del destino:', destinoId);
   
     // 2. Validamos si es un id válido
@@ -115,12 +116,14 @@ export class DestinoComponent implements OnInit {
   }
 
 
-  // Método para actualizar la imagen seleccionada en el servicio compartido
+  // Método para actualizar la imagen seleccionada en el servicio compartido - se selecciona en HTML y lleva el resultado
   selectRegion(region: string): void {
     if (region === 'America' && this.america && this.america.length > 0) {
       this.destinoDataService.setSelectedImage(this.america[0].img);
+      this.destinoDataService.setSelectedCity(this.america[0].nombreDestino);
     } else if (region === 'Europe' && this.europa && this.europa.length > 0) {
       this.destinoDataService.setSelectedImage(this.europa[0].img);
+      this.destinoDataService.setSelectedCity(this.europa[0].nombreDestino);
     }
   }
 }

@@ -1,26 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
 
-
-
 .container {
- height: 100vh;
+  height: 100vh;
   width: 100vw;
 }
 
-.conteiner__encabezado{
+.conteiner__encabezado {
   background-color: #000835;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  color:  #fff;
+  color: #fff;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
+  height: 400px;
+  width: 100%;
+  gap: 20px;
 }
 
-.conteiner__encabezado__imagen{
-  width: 200px;
+.conteiner__encabezado__imagen {
+  width: 100vw;
+  height: 300px;
+  display: flex;
+  justify-content: space-around; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.ciudad {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
 }
 
 img {
@@ -29,7 +39,15 @@ img {
   object-fit: cover;
 }
 
-.container__hospedaje{
+.titulo {
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en una columna */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  gap: 50px;
+}
+
+.container__hospedaje {
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -38,12 +56,11 @@ img {
   gap: 20px;
 }
 
-.container__vuelos{
+.container__vuelos {
   background-color: #000835;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 20px;
   color: #fff;
 }
@@ -51,8 +68,6 @@ img {
 a {
   color: #fff;
 }
-
-
 
 .container__hospedaje__opciones{
   display: flex;
@@ -130,9 +145,3 @@ h2{
 .opcion__link__item:hover .tooltiptext {
   visibility: visible;
 }
-
-
-
-
-
-
