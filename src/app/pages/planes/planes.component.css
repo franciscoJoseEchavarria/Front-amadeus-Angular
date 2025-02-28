@@ -31,6 +31,7 @@
   width: 600px;
   height: 300px;
   object-fit: cover;
+  border-radius: 200px;
 }
 
 img {
@@ -44,11 +45,7 @@ img {
   flex-direction: column; /* Alinea los elementos en una columna */
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
-  gap: 50px;
-}
-
-.titulo-info{
-  
+  gap: 20px;
 }
 
 .container__hospedaje {
