@@ -19,6 +19,9 @@ export class PlanesComponent {
     , private destinoService: DestinoService,
     @Inject(PLATFORM_ID) private platformId: Object
   ){}
+  selectedUnmissablePlace: string | undefined; // Contenedor del lugar imperdible seleccionado
+  selectedLanguage: string | undefined; // Contenedor del idioma seleccionado
+  selectedCountry: string | undefined; // Contenedor del país seleccionado
   selectedImage: string | undefined; // Declaras la propiedad y seleccion la imagen que se va a mostrar
   selectedCity: string | undefined; // Contenedro de la ciudad seleccionada
   destinoId : number | null = null;
@@ -33,6 +36,23 @@ export class PlanesComponent {
     } else {
       console.warn('sessionStorage no está disponible en este entorno.');
     }
+
+    
+    this.destinoDataService.selelectedUnmissablePlace$.subscribe((unmissablePlace) => {
+      this.selectedUnmissablePlace = unmissablePlace;
+      console.log("lugar imperdible seleccionado", this.selectedUnmissablePlace);
+    });
+
+    this.destinoDataService.selectedLagunage$.subscribe((language) => {
+      this.selectedLanguage = language;
+      console.log("idioma seleccionado", this.selectedLanguage);
+    });
+
+    this.destinoDataService.selectecCountry$.subscribe((country) => {
+      this.selectedCountry = country;
+      console.log("país seleccionado", this.selectedCountry);
+    });
+
     this.destinoDataService.selectedImage$.subscribe((imageUrl) => {
       this.selectedImage = imageUrl;
       console.log("imagenen seleccionada", this.selectedImage);

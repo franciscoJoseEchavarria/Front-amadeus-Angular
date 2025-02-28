@@ -121,14 +121,14 @@ export class DestinoComponent implements OnInit {
     if (region === 'America' && this.america && this.america.length > 0) {
       this.destinoDataService.setSelectedImage(this.america[0].img);
       this.destinoDataService.setSelectedCity(this.america[0].nombreDestino);
-      this.destinoDataService.setSelectedCountry(this.america[0].continente);
-      this.destinoDataService.setSelectedUnmissablePlace(this.america[0].lugarImprescindible);
+      this.destinoDataService.setSelectedCountry(this.america[0].pais);
+      this.destinoDataService.setSelectedUnmissablePlace(this.america[0].lugarImperdible);
       this.destinoDataService.setSelectedLanguage(this.america[0].idioma);
     } else if (region === 'Europe' && this.europa && this.europa.length > 0) {
       this.destinoDataService.setSelectedImage(this.europa[0].img);
       this.destinoDataService.setSelectedCity(this.europa[0].nombreDestino);
-      this.destinoDataService.setSelectedCountry(this.europa[0].continente);
-      this.destinoDataService.setSelectedUnmissablePlace(this.europa[0].lugarImprescindible);
+      this.destinoDataService.setSelectedCountry(this.europa[0].pais);
+      this.destinoDataService.setSelectedUnmissablePlace(this.europa[0].lugarImperdible);
       this.destinoDataService.setSelectedLanguage(this.europa[0].idioma);
     }
   }

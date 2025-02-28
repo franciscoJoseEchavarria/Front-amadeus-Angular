@@ -9,7 +9,12 @@
     <div class="conteiner__encabezado__imagen">
       <div class="titulo">
         <h1 class="conteiner__encabezado__titulo">Destino seleccionado:</h1>
-        <h1 class="conteiner__encabezado__nombre">{{selectedCity}}</h1>
+        <div class="titulo-info">
+          <h2 class="conteiner__encabezado__nombre">Pais: {{selectedCountry}}</h2>
+          <h2 class="conteiner__encabezado__nombre">Ciudad: {{selectedCity}}</h2>
+          <h2 class="conteiner__encabezado__nombre">Idioma: {{selectedLanguage}}</h2>
+          <h2 class="conteiner__encabezado__nombre">Lugar imperdible: {{selectedUnmissablePlace}}</h2>
+        </div>
       </div>
       
       <img class="ciudad" [src]="selectedImage" alt="Imagen del destino"/>
