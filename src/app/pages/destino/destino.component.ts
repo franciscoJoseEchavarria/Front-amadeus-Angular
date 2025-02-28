@@ -102,6 +102,7 @@ export class DestinoComponent implements OnInit {
           console.error('Error al obtener detalles:', error);
         }
       );
+
   }
   
   filtrarDestinos(): void {
