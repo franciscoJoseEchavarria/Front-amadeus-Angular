@@ -21,28 +21,27 @@ export class PlanesComponent {
   ){}
   selectedImage: string | undefined; // Declaras la propiedad y seleccion la imagen que se va a mostrar
   selectedCity: string | undefined; // Contenedro de la ciudad seleccionada
-  destinoId =sessionStorage.getItem('destinoId'); // session storage de destinoID
+  destinoId : number | null = null;
   destino = this.destinoService.destinoAmerica;
 
 
   ngOnInit(){
     if (isPlatformBrowser(this.platformId)) {
       // Ahora es seguro usar sessionStorage
-      const destinoId = Number(sessionStorage.getItem('destinoId'));
+      this.destinoId = Number(sessionStorage.getItem('destinoId'));
       // ...
     } else {
       console.warn('sessionStorage no está disponible en este entorno.');
     }
-  this.destinoDataService.selectedImage$.subscribe((imageUrl) => {
-    this.selectedImage = imageUrl;
-    console.log("imagenen seleccionada", this.selectedImage);
-  });
+    this.destinoDataService.selectedImage$.subscribe((imageUrl) => {
+      this.selectedImage = imageUrl;
+      console.log("imagenen seleccionada", this.selectedImage);
+    });
 
-  this.destinoDataService.selectedCity$.subscribe((city) => {
-    this.selectedCity = city;
-    console.log("ciudad seleccionada", this.selectedCity);
-  });
-
-
-}
+    this.destinoDataService.selectedCity$.subscribe((city) => {
+      this.selectedCity = city;
+      console.log("ciudad seleccionada", this.selectedCity);
+    });
+    
+  }// Fin ngOnInit
 }
