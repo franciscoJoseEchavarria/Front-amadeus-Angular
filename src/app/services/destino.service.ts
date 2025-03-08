@@ -71,7 +71,7 @@ import { Session } from 'inspector';
 
     async getDestinity(endpoint: string, params: {destinoAmerica : string , destinoEuropa: string }  ): Promise<any> {
       try {
-        const fullUrl = `${this.apiURL}${endpoint}`;              
+        const fullUrl = `${this.apiURL}${endpoint}`;
         const response = await this.axiosClient.get( endpoint, { params } );
         return response.data;
       } catch (error) {
