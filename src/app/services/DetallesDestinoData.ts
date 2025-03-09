@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DestinoDataService {
+export class DetallesDestinoData {
   // Inicialmente no hay imagen (null)
 
 /*

@@ -4,8 +4,12 @@ import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { DetallesDestinoService } from '@services/DetallesDestinoService';
 import { ActivatedRoute } from '@angular/router';
-import { DestinoDataService } from '@services/DestinoDataService';  // Importación del servicio compartido
+import {DetallesDestinoData } from '@services/DetallesDestinoData';  // Importación del servicio compartido
 import { isPlatformBrowser } from '@angular/common';
+import { FlightsService } from '@services/flightsService';  // Importación del servicio compartido
+import { HotelService } from '@services/hotelService';  // Importación del servicio compartido
+import { Observable } from 'rxjs';
+
 
 
 @Component({
@@ -19,7 +23,9 @@ export class DestinoComponent implements OnInit {
   constructor(public destinoService: DestinoService, public detallesDestinoService : DetallesDestinoService,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private destinoDataService: DestinoDataService,  // Inyección del servicio compartido
+    private destinoDataService: DetallesDestinoData,
+    private flightService : FlightsService,
+    private HotelService: HotelService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -33,8 +39,6 @@ export class DestinoComponent implements OnInit {
   ngOnInit(): void {
     // Lee el parámetro "id" de la ruta
     const destinoId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('Id del destino (desde ruta):', destinoId);
-
     if (!destinoId) {
       console.error('No se encontró un destinoId válido en la URL');
       return;
@@ -43,6 +47,7 @@ export class DestinoComponent implements OnInit {
   }
 
   // se utiliza retries para pasa la información y darle un refres para que carguen los datos, se debe mejorar esto en el backend para que la informacion persista y se pueda realizar.
+
    obtenerDetalles(retries: number = 5): void {
 
     // Verificar que el código se ejecute en el navegador
@@ -51,19 +56,13 @@ export class DestinoComponent implements OnInit {
       return;
     }
     
-
-
     // 1. Obtenemos el destinoId
     const destinoId = Number(sessionStorage.getItem('destinoId'));
-    
-    console.log('Id del destino:', destinoId);
-  
     // 2. Validamos si es un id válido
     if (!destinoId) {
       console.error('No se encontró destinoId en sessionStorage');
       return;
     }
-  
     // 3. Llamamos al servicio
     this.detallesDestinoService.getDetallesByDestinoId(destinoId)
       .subscribe(
@@ -96,6 +95,8 @@ export class DestinoComponent implements OnInit {
             
         
             this.cdr.detectChanges();
+
+            this.createFlights();
           }
         },
         (error) => {
@@ -112,8 +113,6 @@ export class DestinoComponent implements OnInit {
     this.europa = this.destinos.filter(
       (destino) => destino.continente === 'Europa' || destino.continente === 'Asia'
     );
-    console.log('América:', this.america);
-    console.log('Europa o Asia:', this.europa);
   }
 
 
@@ -132,6 +131,41 @@ export class DestinoComponent implements OnInit {
       this.destinoDataService.setSelectedUnmissablePlace(this.europa[0].lugarImperdible);
       this.destinoDataService.setSelectedLanguage(this.europa[0].idioma);
     }
+  }
+
+
+  createFlights (){
+// Supongamos que tienes definidos nombreDestino y destinoId en el componente.
+  // Estos pueden provenir, por ejemplo, de sessionStorage o de la ruta.
+  
+  console.log('estoy en Destino America:', this.america[0].nombreDestino);
+  console.log('estoy en Destino Europa:', this.europa[0].nombreDestino);
+  
+  const nombreDestinoA = this.america[0].nombreDestino;  // O el valor que obtengas dinámicamente
+  const nombreDestinoE = this.europa[0].nombreDestino;  // O el valor que obtengas dinámicamente
+  const destinoId = Number(sessionStorage.getItem('destinoId'));
+  // Llamamos al método createFlights del servicio de vuelos.
+  this.flightService.createFlights(nombreDestinoA, destinoId).subscribe(
+    (response) => {
+      console.log('Vuelos creados exitosamente America:', response);
+      // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
+      // o navegar a otra página.
+    },
+    (error) => {
+      console.error('Error al crear los vuelos:', error);
+    }
+  );
+  // Llamamos al método createFlights del servicio de vuelos.
+  this.flightService.createFlights(nombreDestinoE, destinoId).subscribe(
+    (response) => {
+      console.log('Vuelos creados exitosamente europa:', response);
+      // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
+      // o navegar a otra página.
+    },
+    (error) => {
+      console.error('Error al crear los vuelos:', error);
+    }
+  );
   }
 }
 

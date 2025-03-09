@@ -18,9 +18,6 @@ import { DetallesDestinosResponse } from '../pages/Models/DetallesDestinoRespons
     getDetallesByDestinoId(destinoId: number): Observable<DetallesDestinosResponse[]> {
       return this.http.get<DetallesDestinosResponse[]>(`${this.baseUrl}/destino/${destinoId}`);
     }
-
-
- 
 }
 
 

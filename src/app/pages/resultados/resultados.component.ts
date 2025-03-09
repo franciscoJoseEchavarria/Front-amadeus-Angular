@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { UserQueryService } from '@services/userQuery.service';
 import { parse } from 'path';
 import { Router } from '@angular/router';
+import {DestinoData} from '@services/DestinoData';
 
 @Component({
   selector: 'app-resultados',
@@ -12,11 +13,15 @@ import { Router } from '@angular/router';
   templateUrl: './resultados.component.html',
   styleUrl: './resultados.component.css',
 })
+
+
 export class ResultadosComponent {
   
   constructor(public destinoService: DestinoService, 
     public userQueryService : UserQueryService,
-    private router: Router) {}
+    private router: Router,
+    private destinoData: DestinoData
+    ) {}
 
   destinoAmerica = '';
   destinoEuropa = '';
@@ -130,6 +135,9 @@ export class ResultadosComponent {
       sessionStorage.setItem('destinoAmerica', destinoResponse.destinoAmerica);
       sessionStorage.setItem('destinoEuropa', destinoResponse.destinoEuropa);
       sessionStorage.setItem('destinoId', destinoResponse.id.toString());
+      this.destinoData.setSelectedId(destinoResponse.id.toString());
+      this.destinoData.setSelectedAmerica(destinoResponse.destinoAmerica);
+      this.destinoData.setSelectedEuropa(destinoResponse.destinoEuropa);
   
       // 6. Navegar a la página destino SOLO después de que los datos estén correctamente guardados
       await this.router.navigate(['/destino', destinoResponse.id]);

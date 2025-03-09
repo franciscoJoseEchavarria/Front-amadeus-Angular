@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
-import { DestinoDataService } from '@services/DestinoDataService';
+import { DetallesDestinoData } from '@services/DetallesDestinoData';
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
 
@@ -15,7 +15,7 @@ import { Inject, PLATFORM_ID } from '@angular/core';
 })
 export class PlanesComponent {
 
-  constructor(private destinoDataService: DestinoDataService
+  constructor(private destinoDataService: DetallesDestinoData
     , private destinoService: DestinoService,
     @Inject(PLATFORM_ID) private platformId: Object
   ){}

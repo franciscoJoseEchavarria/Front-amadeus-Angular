@@ -40,9 +40,15 @@ export class UserService {
     }
   }
   
+
+  // Método para obtener el ID del usuario actual.
   getUserId(): number | null {
     return this.userId 
   }
+
+
+
+
   // Método asíncrono para obtener un usuario por ID.
   async getUserById(id: number): Promise<any> {
     try {

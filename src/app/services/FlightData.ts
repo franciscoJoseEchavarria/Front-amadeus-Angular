@@ -8,5 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 export class FlightData {
   // Inicialmente no hay imagen (null)
 
+  
+
+
 
 }
