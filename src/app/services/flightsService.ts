@@ -19,9 +19,9 @@ interface FlightsResponse {
   
     constructor(private http: HttpClient) {}
 
-    createFlights(nombreDestino: string, destinoId: number): Observable<FlightsResponse[]> {
+    createFlights(nombreDestino: string, destinoId: number): Observable<FlightsResponse> {
       const url = `${this.apiUrl}/create?nombreDestino=${encodeURIComponent(nombreDestino)}&destinoId=${destinoId}`;
-      return this.http.post<FlightsResponse[]>(url, {});
+      return this.http.post<FlightsResponse>(url, {});
     }
 
 

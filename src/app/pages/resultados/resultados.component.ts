@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { UserQueryService } from '@services/userQuery.service';
 import { parse } from 'path';
 import { Router } from '@angular/router';
-import {DestinoData} from '@services/DestinoData';
+import {DestinoData} from '@services/Data/DestinoData';
 
 @Component({
   selector: 'app-resultados',

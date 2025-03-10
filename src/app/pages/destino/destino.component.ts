@@ -4,11 +4,15 @@ import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { DetallesDestinoService } from '@services/DetallesDestinoService';
 import { ActivatedRoute } from '@angular/router';
-import {DetallesDestinoData } from '@services/DetallesDestinoData';  // Importación del servicio compartido
+import {DetallesDestinoData } from '@services/Data/DetallesDestinoData';  // Importación del servicio compartido
 import { isPlatformBrowser } from '@angular/common';
 import { FlightsService } from '@services/flightsService';  // Importación del servicio compartido
 import { HotelService } from '@services/hotelService';  // Importación del servicio compartido
 import { Observable } from 'rxjs';
+import { FlightData } from '@services/Data/FlightData'; // Import FlightData
+import { HotelData } from '@services/Data/HotelData'; // Import HotelData
+import {FlightsResponse} from '../Response/FlightsResponse'; // Import FlightResponse
+
 
 
 
@@ -25,9 +29,12 @@ export class DestinoComponent implements OnInit {
     private route: ActivatedRoute,
     private destinoDataService: DetallesDestinoData,
     private flightService : FlightsService,
-    private HotelService: HotelService,
+    private hotelService: HotelService,
+    private hotelData: HotelData,
+    private flightData: FlightData,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+  
 
   control: boolean = true;
 
@@ -96,7 +103,14 @@ export class DestinoComponent implements OnInit {
         
             this.cdr.detectChanges();
 
+            
             this.createFlights();
+
+
+
+
+            this.createHotel();
+
           }
         },
         (error) => {
@@ -148,6 +162,7 @@ export class DestinoComponent implements OnInit {
   this.flightService.createFlights(nombreDestinoA, destinoId).subscribe(
     (response) => {
       console.log('Vuelos creados exitosamente America:', response);
+      this.flightData.setselectedAmerica(response.flightName, response.flightDescription, response.flightImg);
       // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
       // o navegar a otra página.
     },
@@ -166,6 +181,29 @@ export class DestinoComponent implements OnInit {
       console.error('Error al crear los vuelos:', error);
     }
   );
+  }
+
+  createHotel(){
+
+    const nombreDestinoA = this.america[0].nombreDestino;  // O el valor que obtengas dinámicamente
+    const nombreDestinoE = this.europa[0].nombreDestino;  // O el valor que obtengas dinámicamente
+    const destinoId = Number(sessionStorage.getItem('destinoId'));
+
+    this.hotelService.createHotels(nombreDestinoA, destinoId).subscribe(
+      (response) =>{
+        console.log('Vuelos creados exitosamente America:', response);
+      },
+      (error) =>{
+        console.error('Error al crear los vuelos:', error);
+      });
+
+      this.hotelService.createHotels(nombreDestinoE, destinoId).subscribe(
+        (response) =>{
+          console.log('Vuelos creados exitosamente America:', response);
+        },
+        (error) =>{
+          console.error('Error al crear los vuelos:', error);
+        });
   }
 }
 

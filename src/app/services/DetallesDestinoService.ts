@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import axios, { AxiosInstance } from 'axios';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, from } from 'rxjs';
-import { DetallesDestinosResponse } from '../pages/Models/DetallesDestinoResponse';
+import { DetallesDestinosResponse } from '../pages/Response/DetallesDestinoResponse';
 
   @Injectable({
     providedIn: 'root',

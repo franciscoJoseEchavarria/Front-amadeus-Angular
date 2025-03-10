@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
-import { DetallesDestinoData } from '@services/DetallesDestinoData';
+import { DetallesDestinoData } from '@services/Data/DetallesDestinoData';
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
 

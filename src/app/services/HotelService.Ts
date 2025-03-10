@@ -18,9 +18,11 @@ interface HotelResponse {
   
     constructor(private http: HttpClient) {}
 
-    createFlights(nombreDestino: string, destinoId: number): Observable<HotelResponse[]> {
-        const requestBody = {nombreDestino, destinoId};
-      return this.http.post<HotelResponse[]>(`${this.apiUrl}/create`, requestBody);
+    createHotels(nombreDestino: string, destinoId: number): Observable<HotelResponse[]> {
+      {
+        const url = `${this.apiUrl}/create?nombreDestino=${encodeURIComponent(nombreDestino)}&destinoId=${destinoId}`;
+        return this.http.post<HotelResponse[]>(url, {});
+      }
     }
 
     getFlightAll(): Observable<HotelResponse[]> {
