@@ -11,9 +11,6 @@ import { HotelService } from '@services/hotelService';  // Importación del serv
 import { Observable } from 'rxjs';
 import { FlightData } from '@services/Data/FlightData'; // Import FlightData
 import { HotelData } from '@services/Data/HotelData'; // Import HotelData
-import {FlightsResponse} from '../Response/FlightsResponse'; // Import FlightResponse
-
-
 
 
 @Component({
@@ -55,7 +52,7 @@ export class DestinoComponent implements OnInit {
 
   // se utiliza retries para pasa la información y darle un refres para que carguen los datos, se debe mejorar esto en el backend para que la informacion persista y se pueda realizar.
 
-   obtenerDetalles(retries: number = 5): void {
+  obtenerDetalles(retries: number = 5): void {
 
     // Verificar que el código se ejecute en el navegador
     if (!isPlatformBrowser(this.platformId)) {
@@ -103,12 +100,7 @@ export class DestinoComponent implements OnInit {
         
             this.cdr.detectChanges();
 
-            
             this.createFlights();
-
-
-
-
             this.createHotel();
 
           }
@@ -162,7 +154,7 @@ export class DestinoComponent implements OnInit {
   this.flightService.createFlights(nombreDestinoA, destinoId).subscribe(
     (response) => {
       console.log('Vuelos creados exitosamente America:', response);
-      this.flightData.setselectedAmerica(response.flightName, response.flightDescription, response.flightImg);
+      this.flightData.setselectedAmerica(response.name as string, response.description as string, response.img as string);
       // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
       // o navegar a otra página.
     },
@@ -174,6 +166,7 @@ export class DestinoComponent implements OnInit {
   this.flightService.createFlights(nombreDestinoE, destinoId).subscribe(
     (response) => {
       console.log('Vuelos creados exitosamente europa:', response);
+      this.flightData.setselectedEuropa(response.name as string, response.description as string, response.img as string);
       // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
       // o navegar a otra página.
     },
@@ -192,6 +185,7 @@ export class DestinoComponent implements OnInit {
     this.hotelService.createHotels(nombreDestinoA, destinoId).subscribe(
       (response) =>{
         console.log('Vuelos creados exitosamente America:', response);
+        this.hotelData.setselectedAmerica(response.name as string, response.description as string, response.img as string);
       },
       (error) =>{
         console.error('Error al crear los vuelos:', error);
@@ -200,6 +194,7 @@ export class DestinoComponent implements OnInit {
       this.hotelService.createHotels(nombreDestinoE, destinoId).subscribe(
         (response) =>{
           console.log('Vuelos creados exitosamente America:', response);
+          this.hotelData.setselectedEuropa(response.name as string, response.description as string, response.img as string);
         },
         (error) =>{
           console.error('Error al crear los vuelos:', error);

@@ -3,9 +3,7 @@ import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, from } from 'rxjs';
 
-interface FlightsResponse {
-  // Define the properties of FlightsResponse here
-}
+import { FlightsResponse} from '../pages/Response/FlightsResponse';
 
 
 @Injectable({
