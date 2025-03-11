@@ -7,6 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 
 export class DestinoData {
+    flightsCreated = false;
+    hotelsCreated = false;
 
     private selectecId = new BehaviorSubject<string>("");
     private selectecAmerica = new BehaviorSubject<string>("");

@@ -10,6 +10,7 @@ import { FlightsService } from '@services/flightsService';  // Importación del 
 import { HotelService } from '@services/hotelService';  // Importación del servicio compartido
 import { Observable } from 'rxjs';
 import { FlightData } from '@services/Data/FlightData'; // Import FlightData and FlightsResponse
+import { DestinoData } from '@services/Data/DestinoData'; // Import DestinoData
 import { HotelData } from '@services/Data/HotelData'; // Import HotelData
 import { FlightsResponse } from '@pages/Response/FlightsResponse'; // Import FlightsResponse
 import {HotelResponse} from "@pages/Response/HotelResponse"; // Import HotelResponse
@@ -31,6 +32,7 @@ export class DestinoComponent implements OnInit {
     private hotelService: HotelService,
     private hotelData: HotelData,
     private flightData: FlightData,
+    private destinoData: DestinoData,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -39,6 +41,8 @@ export class DestinoComponent implements OnInit {
   vuelosEuropaResponse: FlightsResponse [] | null = null;
   hotelAmericaResponse: HotelResponse [] | null =null;
   hotelEuropaResponse: HotelResponse [] | null = null;
+  selectedRegion: string = '';
+
   
 
   control: boolean = true;
@@ -46,6 +50,7 @@ export class DestinoComponent implements OnInit {
   destinos: any[] = [];
   america: any[] = [];
   europa: any[] = [];
+
 
   ngOnInit(): void {
     // Lee el parámetro "id" de la ruta
@@ -109,6 +114,7 @@ export class DestinoComponent implements OnInit {
 
             this.createFlights();
             this.createHotel();
+            
 
           }
         },
@@ -129,57 +135,25 @@ export class DestinoComponent implements OnInit {
   }
 
 
-  // Método para actualizar la imagen seleccionada en el servicio compartido - se selecciona en HTML y lleva el resultado
-  selectRegion(region: string): void {
-    if (region === 'America' && this.america && this.america.length > 0) {
-      this.destinoDataService.setSelectedImage(this.america[0].img);
-      this.destinoDataService.setSelectedCity(this.america[0].nombreDestino);
-      this.destinoDataService.setSelectedCountry(this.america[0].pais);
-      this.destinoDataService.setSelectedUnmissablePlace(this.america[0].lugarImperdible);
-      this.destinoDataService.setSelectedLanguage(this.america[0].idioma);
-      if(this.hotelAmericaResponse){
-        this.hotelData.setSelected(this.hotelAmericaResponse);
-        console.log('hoteles america:', this.hotelAmericaResponse);
-      }
-      if(this.vuelosAmericaResponse){
-        this.flightData.setselected(this.vuelosAmericaResponse);
-        console.log('vuelos america:', this.vuelosAmericaResponse);
-      }
-
-    } else if (region === 'Europe' && this.europa && this.europa.length > 0) {
-      this.destinoDataService.setSelectedImage(this.europa[0].img);
-      this.destinoDataService.setSelectedCity(this.europa[0].nombreDestino);
-      this.destinoDataService.setSelectedCountry(this.europa[0].pais);
-      this.destinoDataService.setSelectedUnmissablePlace(this.europa[0].lugarImperdible);
-      this.destinoDataService.setSelectedLanguage(this.europa[0].idioma);
-      if (this.hotelEuropaResponse) {
-        this.hotelData.setSelected(this.hotelEuropaResponse);
-        console.log('hoteles europa:', this.hotelEuropaResponse);
-      }
-      if (this.vuelosEuropaResponse) {
-        this.flightData.setselected(this.vuelosEuropaResponse);
-        console.log('vuelos europa:', this.vuelosEuropaResponse);
-      }
-
-    }
-  }
-
-
+  
+  
+  
   createFlights (){
-// Supongamos que tienes definidos nombreDestino y destinoId en el componente.
-  // Estos pueden provenir, por ejemplo, de sessionStorage o de la ruta.
-  
-  console.log('estoy en Destino America:', this.america[0].nombreDestino);
-  console.log('estoy en Destino Europa:', this.europa[0].nombreDestino);
-  
-  const nombreDestinoA = this.america[0].nombreDestino;  // O el valor que obtengas dinámicamente
-  const nombreDestinoE = this.europa[0].nombreDestino;  // O el valor que obtengas dinámicamente
-  const destinoId = Number(sessionStorage.getItem('destinoId'));
-  // Llamamos al método createFlights del servicio de vuelos.
-  this.flightService.createFlights(nombreDestinoA, destinoId).subscribe(
+    if (this.destinoData.flightsCreated) {
+      console.warn('Los vuelos ya han sido creados.');
+      return;
+    }
+    // Supongamos que tienes definidos nombreDestino y destinoId en el componente.
+    // Estos pueden provenir, por ejemplo, de sessionStorage o de la ruta.
+    const nombreDestinoA = this.america[0].nombreDestino;  // O el valor que obtengas dinámicamente
+    const nombreDestinoE = this.europa[0].nombreDestino;  // O el valor que obtengas dinámicamente
+    const destinoId = Number(sessionStorage.getItem('destinoId'));
+    // Llamamos al método createFlights del servicio de vuelos.
+    this.flightService.createFlights(nombreDestinoA, destinoId).subscribe(
     (response) => {
       console.log('Vuelos creados exitosamente America:', response);
       this. vuelosAmericaResponse = response;
+      
       
       // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
       // o navegar a otra página.
@@ -192,7 +166,7 @@ export class DestinoComponent implements OnInit {
   this.flightService.createFlights(nombreDestinoE, destinoId).subscribe(
     (response) => {
       console.log('Vuelos creados exitosamente europa:', response);
-      this.vuelosEuropaResponse = response;
+      this. vuelosEuropaResponse = response;
       
       // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
       // o navegar a otra página.
@@ -201,19 +175,26 @@ export class DestinoComponent implements OnInit {
       console.error('Error al crear los vuelos:', error);
     }
   );
+  
+  this.destinoData.flightsCreated = true;// bandera creada para que no se dupliquen los metodos
+}
+
+
+createHotel(){
+  if (this.destinoData.hotelsCreated) {
+    console.warn('Los vuelos ya han sido creados.');
+    return;
   }
 
-  createHotel(){
-
-    const nombreDestinoA = this.america[0].nombreDestino;  // O el valor que obtengas dinámicamente
-    const nombreDestinoE = this.europa[0].nombreDestino;  // O el valor que obtengas dinámicamente
-    const destinoId = Number(sessionStorage.getItem('destinoId'));
-
-    this.hotelService.createHotels(nombreDestinoA, destinoId).subscribe(
-      (response) =>{
+  const nombreDestinoA = this.america[0].nombreDestino;  // O el valor que obtengas dinámicamente
+  const nombreDestinoE = this.europa[0].nombreDestino;  // O el valor que obtengas dinámicamente
+  const destinoId = Number(sessionStorage.getItem('destinoId'));
+  
+  this.hotelService.createHotels(nombreDestinoA, destinoId).subscribe(
+    (response) =>{
         console.log('Vuelos creados exitosamente America:', response);
-        this.hotelAmericaResponse= response
-       
+        this.hotelAmericaResponse = response
+      
         console.log('Vuelos creados exitosamente America:', response);
       },
       (error) =>{
@@ -223,14 +204,58 @@ export class DestinoComponent implements OnInit {
       this.hotelService.createHotels(nombreDestinoE, destinoId).subscribe(
         (response) =>{
           console.log('Vuelos creados exitosamente America:', response);
-          this.hotelEuropaResponse = response;
+          this.hotelEuropaResponse = response    
+          
+        
           
         },
         (error) =>{
           console.error('Error al crear los vuelos:', error);
         });
+        this.destinoData.hotelsCreated= true; // bandera creada para que no se dupliquen los metodos
+  }
+  // Método para actualizar la imagen seleccionada en el servicio compartido - se selecciona en HTML y lleva el resultado
+
+  selectRegion(region: 'America' | 'Europe'): void {
+    if (this.selectedRegion === region) {
+      // Si la región ya está seleccionada, no hagas nada para evitar repetir la asignación
+      return;
+    }
+  
+    this.selectedRegion = region;
+    
+    if (region === 'America' && this.america && this.america.length > 0) {
+      this.destinoDataService.setSelectedId(this.america[0].id);
+      this.destinoDataService.setSelectedImage(this.america[0].img);
+      this.destinoDataService.setSelectedCity(this.america[0].nombreDestino);
+      this.destinoDataService.setSelectedCountry(this.america[0].pais);
+      this.destinoDataService.setSelectedUnmissablePlace(this.america[0].lugarImperdible);
+      this.destinoDataService.setSelectedLanguage(this.america[0].idioma);  
+      
+      if (this.hotelAmericaResponse) {
+        this.hotelData.setSelected(this.hotelAmericaResponse);
+      }
+      if (this.vuelosAmericaResponse) {
+        this.flightData.setselected(this.vuelosAmericaResponse);
+      }
+  
+    } else if (region === 'Europe' && this.europa && this.europa.length > 0) {
+      this.destinoDataService.setSelectedId(this.europa[0].id);
+      this.destinoDataService.setSelectedImage(this.europa[0].img);
+      this.destinoDataService.setSelectedCity(this.europa[0].nombreDestino);
+      this.destinoDataService.setSelectedCountry(this.europa[0].pais);
+      this.destinoDataService.setSelectedUnmissablePlace(this.europa[0].lugarImperdible);
+      this.destinoDataService.setSelectedLanguage(this.europa[0].idioma);
+  
+      if (this.hotelEuropaResponse) {
+        this.hotelData.setSelected(this.hotelEuropaResponse);
+        console.log('hoteles europa:', this.hotelEuropaResponse);
+      }
+      if (this.vuelosEuropaResponse) {
+        this.flightData.setselected(this.vuelosEuropaResponse);
+        console.log('vuelos europa:', this.vuelosEuropaResponse);
+      }
+    }
   }
 }
-
-
 

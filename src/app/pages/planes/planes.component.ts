@@ -38,6 +38,7 @@ export class PlanesComponent {
   selectedCity: string | undefined; // Contenedro de la ciudad seleccionada
   destinoId : number | null = null;
   destino = this.destinoService.destinoAmerica;
+  detallesDestinoId: number | null = null;
 
   
 
@@ -51,6 +52,10 @@ export class PlanesComponent {
       console.warn('sessionStorage no está disponible en este entorno.');
     }
 
+    this.destinoDataService.selectedId$.subscribe((id) => {
+      this.detallesDestinoId = id;
+      console.log("id seleccionado detallesDestino", this.detallesDestinoId);
+    });
     
     this.destinoDataService.selelectedUnmissablePlace$.subscribe((unmissablePlace) => {
       this.selectedUnmissablePlace = unmissablePlace;

@@ -18,6 +18,7 @@ Valor Inicial: Un BehaviorSubject requiere un valor inicial cuando se crea.
 Emisión del Valor Más Reciente: Siempre emite el valor más reciente a cualquier nuevo suscriptor, incluso si ese valor se emitió antes de que el suscriptor se suscribiera.
 Acceso al Valor Actual: Puedes acceder al valor actual del BehaviorSubject en cualquier momento usando la propiedad value.
 */
+  private selectedId = new BehaviorSubject<number>(0);
   private selectedUnmissablePlace = new BehaviorSubject<string>("");
   private selectecLanguageSource = new BehaviorSubject<string>("");
   private selectecCountrySource = new BehaviorSubject<string>("");
@@ -26,12 +27,17 @@ Acceso al Valor Actual: Puedes acceder al valor actual del BehaviorSubject en cu
   // Se expone el observable para que otros componentes se puedan suscribir
   
   // se declaran como observables para que otros componentes puedan suscribirse a ellas y recibir actualizaciones en tiempo real cuando los valores cambien.
+  selectedId$ = this.selectedId.asObservable();
   selelectedUnmissablePlace$ = this.selectedUnmissablePlace.asObservable();
   selectedLagunage$ = this.selectecLanguageSource.asObservable();
   selectecCountry$ = this.selectecCountrySource.asObservable();
   selectedCity$ = this.selectedCitySource.asObservable();
   selectedImage$ = this.selectedImageSource.asObservable();
 
+  // Método para actualizar el id
+  setSelectedId(id: number): void {
+    this.selectedId.next(id);
+  }
 
   setSelectedUnmissablePlace(unmissablePlace: string): void {
     this.selectedUnmissablePlace.next(unmissablePlace);
