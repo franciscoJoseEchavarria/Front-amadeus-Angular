@@ -19,6 +19,23 @@
   gap: 20px;
 }
 
+
+.descripcion {
+  text-align: center;
+}
+
+
+.titulo-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.conteiner__encabezado__descripcion{
+  display: flex;
+  gap: 40px;
+}
 .conteiner__encabezado__imagen {
   width: 100%;
   height: 300px;
@@ -91,11 +108,15 @@ a {
 .container__hospedaje__opcion__img{
   width: 50%;
 }
+
+
 .container__hospedaje__opcion__info{
   display: flex;
   flex-direction: column;
   gap: 20px;  
   width: 50%;
+  justify-content: center; /* Centra verticalmente */
+  
 }
 
 

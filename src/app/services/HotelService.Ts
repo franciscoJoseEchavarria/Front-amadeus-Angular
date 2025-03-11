@@ -16,10 +16,10 @@ import { HotelResponse} from '../pages/Response/HotelResponse';
   
     constructor(private http: HttpClient) {}
 
-    createHotels(nombreDestino: string, destinoId: number): Observable<HotelResponse> {
+    createHotels(nombreDestino: string, destinoId: number): Observable<HotelResponse[]> {
       {
         const url = `${this.apiUrl}/create?nombreDestino=${encodeURIComponent(nombreDestino)}&destinoId=${destinoId}`;
-        return this.http.post<HotelResponse>(url, {});
+        return this.http.post<HotelResponse[]>(url, {});
       }
     }
 

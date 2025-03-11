@@ -2,8 +2,12 @@ import { Component } from '@angular/core';
 import { DestinoService } from '@services/destino.service';
 import { RouterLink } from '@angular/router';
 import { DetallesDestinoData } from '@services/Data/DetallesDestinoData';
+import { HotelData } from '@services/Data/HotelData'; // Add this line to import HotelData
+import { FlightData } from '@services/Data/FlightData'; // Add this line to import FlightData
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
+import {HotelResponse} from '../../pages/Response/HotelResponse'; // Add this line to import HotelResponse
+import {FlightsResponse} from '../../pages/Response/FlightsResponse'; // Add this line to import FlightsResponse
 
 
 @Component({
@@ -14,11 +18,19 @@ import { Inject, PLATFORM_ID } from '@angular/core';
   styleUrl: './planes.component.css'
 })
 export class PlanesComponent {
-
-  constructor(private destinoDataService: DetallesDestinoData
-    , private destinoService: DestinoService,
+  constructor(
+    private destinoDataService: DetallesDestinoData,
+    private destinoService: DestinoService,
+    private hotelData: HotelData,
+    private flightData: FlightData,
     @Inject(PLATFORM_ID) private platformId: Object
   ){}
+
+
+  Hotel: HotelResponse [] = []; // Add this line to declare HotelAmerica
+  Flight: FlightsResponse [] = []; // Add this line to declare FlightAmerica
+ 
+ 
   selectedUnmissablePlace: string | undefined; // Contenedor del lugar imperdible seleccionado
   selectedLanguage: string | undefined; // Contenedor del idioma seleccionado
   selectedCountry: string | undefined; // Contenedor del país seleccionado
@@ -26,6 +38,8 @@ export class PlanesComponent {
   selectedCity: string | undefined; // Contenedro de la ciudad seleccionada
   destinoId : number | null = null;
   destino = this.destinoService.destinoAmerica;
+
+  
 
 
   ngOnInit(){
@@ -62,6 +76,16 @@ export class PlanesComponent {
       this.selectedCity = city;
       console.log("ciudad seleccionada", this.selectedCity);
     });
-    
+
+    this.hotelData.hoteles$.subscribe((hoteles) => {
+      this.Hotel = hoteles;
+      console.log("hoteles de america", this.Hotel);
+    });
+
+    this.flightData.flight$.subscribe((flights) => {
+      this.Flight = flights;
+      console.log("vuelos de america", this.Flight);
+    });
+
   }// Fin ngOnInit
 }

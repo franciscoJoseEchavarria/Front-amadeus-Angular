@@ -17,8 +17,6 @@ export class IndexComponent {
     this.buttonText = '¡Vamos a viajar!';
 
   }
-
-
   onMouseOut(){
     this.buttonText = "¡Dale click aquí o la imagen y prepárate para viajar!";
   }

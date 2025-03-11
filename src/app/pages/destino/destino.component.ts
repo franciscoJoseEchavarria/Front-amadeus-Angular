@@ -9,8 +9,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { FlightsService } from '@services/flightsService';  // Importación del servicio compartido
 import { HotelService } from '@services/hotelService';  // Importación del servicio compartido
 import { Observable } from 'rxjs';
-import { FlightData } from '@services/Data/FlightData'; // Import FlightData
+import { FlightData } from '@services/Data/FlightData'; // Import FlightData and FlightsResponse
 import { HotelData } from '@services/Data/HotelData'; // Import HotelData
+import { FlightsResponse } from '@pages/Response/FlightsResponse'; // Import FlightsResponse
+import {HotelResponse} from "@pages/Response/HotelResponse"; // Import HotelResponse
 
 
 @Component({
@@ -31,10 +33,15 @@ export class DestinoComponent implements OnInit {
     private flightData: FlightData,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+
+  // contenedores de vuelos y hoteles America y Europa, se almacena en el bulevar
+  vuelosAmericaResponse: FlightsResponse[] | null = null;
+  vuelosEuropaResponse: FlightsResponse [] | null = null;
+  hotelAmericaResponse: HotelResponse [] | null =null;
+  hotelEuropaResponse: HotelResponse [] | null = null;
   
 
   control: boolean = true;
-
 
   destinos: any[] = [];
   america: any[] = [];
@@ -130,12 +137,30 @@ export class DestinoComponent implements OnInit {
       this.destinoDataService.setSelectedCountry(this.america[0].pais);
       this.destinoDataService.setSelectedUnmissablePlace(this.america[0].lugarImperdible);
       this.destinoDataService.setSelectedLanguage(this.america[0].idioma);
+      if(this.hotelAmericaResponse){
+        this.hotelData.setSelected(this.hotelAmericaResponse);
+        console.log('hoteles america:', this.hotelAmericaResponse);
+      }
+      if(this.vuelosAmericaResponse){
+        this.flightData.setselected(this.vuelosAmericaResponse);
+        console.log('vuelos america:', this.vuelosAmericaResponse);
+      }
+
     } else if (region === 'Europe' && this.europa && this.europa.length > 0) {
       this.destinoDataService.setSelectedImage(this.europa[0].img);
       this.destinoDataService.setSelectedCity(this.europa[0].nombreDestino);
       this.destinoDataService.setSelectedCountry(this.europa[0].pais);
       this.destinoDataService.setSelectedUnmissablePlace(this.europa[0].lugarImperdible);
       this.destinoDataService.setSelectedLanguage(this.europa[0].idioma);
+      if (this.hotelEuropaResponse) {
+        this.hotelData.setSelected(this.hotelEuropaResponse);
+        console.log('hoteles europa:', this.hotelEuropaResponse);
+      }
+      if (this.vuelosEuropaResponse) {
+        this.flightData.setselected(this.vuelosEuropaResponse);
+        console.log('vuelos europa:', this.vuelosEuropaResponse);
+      }
+
     }
   }
 
@@ -154,7 +179,8 @@ export class DestinoComponent implements OnInit {
   this.flightService.createFlights(nombreDestinoA, destinoId).subscribe(
     (response) => {
       console.log('Vuelos creados exitosamente America:', response);
-      this.flightData.setselectedAmerica(response.name as string, response.description as string, response.img as string);
+      this. vuelosAmericaResponse = response;
+      
       // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
       // o navegar a otra página.
     },
@@ -166,7 +192,8 @@ export class DestinoComponent implements OnInit {
   this.flightService.createFlights(nombreDestinoE, destinoId).subscribe(
     (response) => {
       console.log('Vuelos creados exitosamente europa:', response);
-      this.flightData.setselectedEuropa(response.name as string, response.description as string, response.img as string);
+      this.vuelosEuropaResponse = response;
+      
       // Aquí puedes realizar acciones adicionales, por ejemplo, almacenar la respuesta
       // o navegar a otra página.
     },
@@ -185,7 +212,9 @@ export class DestinoComponent implements OnInit {
     this.hotelService.createHotels(nombreDestinoA, destinoId).subscribe(
       (response) =>{
         console.log('Vuelos creados exitosamente America:', response);
-        this.hotelData.setselectedAmerica(response.name as string, response.description as string, response.img as string);
+        this.hotelAmericaResponse= response
+       
+        console.log('Vuelos creados exitosamente America:', response);
       },
       (error) =>{
         console.error('Error al crear los vuelos:', error);
@@ -194,7 +223,8 @@ export class DestinoComponent implements OnInit {
       this.hotelService.createHotels(nombreDestinoE, destinoId).subscribe(
         (response) =>{
           console.log('Vuelos creados exitosamente America:', response);
-          this.hotelData.setselectedEuropa(response.name as string, response.description as string, response.img as string);
+          this.hotelEuropaResponse = response;
+          
         },
         (error) =>{
           console.error('Error al crear los vuelos:', error);

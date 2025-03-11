@@ -9,12 +9,22 @@
     <div class="conteiner__encabezado__imagen">
       <div class="titulo">
         <h1 class="conteiner__encabezado__titulo">Seleccion: </h1>
-        <div class="titulo-info">
-          <h2 class="conteiner__encabezado__nombre">Pais: {{selectedCountry}}</h2>
-          <h2 class="conteiner__encabezado__nombre">Ciudad: {{selectedCity}}</h2>
-          <h2 class="conteiner__encabezado__nombre">Idioma: {{selectedLanguage}}</h2>
-          <h2 class="conteiner__encabezado__nombre">Lugar imperdible: {{selectedUnmissablePlace}}</h2>
+        
+        <div class="conteiner__encabezado__descripcion">
+          <div class="titulo-info">
+            <h2 class="conteiner__encabezado__nombre">Pais: </h2>
+            <h2 class="conteiner__encabezado__nombre">Ciudad: </h2>
+            <h2 class="conteiner__encabezado__nombre">Idioma: </h2>
+            <h2 class="conteiner__encabezado__nombre">L. imperdible: </h2>
+          </div>
+          <div class="titulo-info">
+            <h2 class="conteiner__encabezado__nombre">{{selectedCountry}}</h2>
+            <h2 class="conteiner__encabezado__nombre">{{selectedCity}}</h2>
+            <h2 class="conteiner__encabezado__nombre">{{selectedLanguage}}</h2>
+            <h2 class="conteiner__encabezado__nombre">{{selectedUnmissablePlace}}</h2>
+          </div>
         </div>
+
       </div>
       
       <img class="ciudad" [src]="selectedImage" alt="Imagen del destino"/>
@@ -34,30 +44,28 @@
       <div class="container__hospedaje__opcion">
 
         <div class="container__hospedaje__opcion__img">
-          <a href="https://www.palladiumhotelgroup.com/es/hoteles/mexico/costamujerescancun/trs-coral-hotel?gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnUidFzwbGH4_ZKXIZK_Y24hcrmgBWK5yB9mTOcVSgpR1VBvCz4uFFwaAhvDEALw_wcB&gclsrc=aw.ds" target="_blank"><img src="../../../assets/img/trs-cancun.jpg" alt="" /></a>
+          <a href="https://www.palladiumhotelgroup.com/es/hoteles/mexico/costamujerescancun/trs-coral-hotel?gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnUidFzwbGH4_ZKXIZK_Y24hcrmgBWK5yB9mTOcVSgpR1VBvCz4uFFwaAhvDEALw_wcB&gclsrc=aw.ds" target="_blank"><img [src]="Hotel[0].img" alt="" /></a>
         </div>
         
         <div class="container__hospedaje__opcion__info">
-          <h3>TRS Coral Hotel</h3>
+          <h3>{{Hotel[0].name}}</h3>
           <p>
-            Se sitúa en Cancún, playa del carmen, cuenta con zona privada de
-            playa, piscina al aire libre, wifi gratis en todo el hotel y 13
-            restaurantes con diferentes menús.
+            {{Hotel[0].description
+            }}
           </p>
         </div>
       </div>
   
       <div class="container__hospedaje__opcion">
         <div class="container__hospedaje__opcion__img">
-          <a href="https://www.riu.com/es/ofertas/unete-riu-class-LATAM.jsp?gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnWnrDydr_vZS-uMKyFU8-40uzIbr8jLAtl4bm0wfBBc6RA8qa-zuUsaAmwUEALw_wcB&gclsrc=aw.ds" target="_blank"><img src="../../../assets/img/Riu-palace.jpg" alt="" /></a>
+          <a href="https://www.riu.com/es/ofertas/unete-riu-class-LATAM.jsp?gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnWnrDydr_vZS-uMKyFU8-40uzIbr8jLAtl4bm0wfBBc6RA8qa-zuUsaAmwUEALw_wcB&gclsrc=aw.ds" target="_blank"><img [src]="Hotel[1].img" alt="" /></a>
         </div>
 
         <div class="container__hospedaje__opcion__info">
-          <h3>Riu Palace Hotel</h3>
+          <h3>{{Hotel[1].name}}</h3>
           <p>
-            Se sitúa en Cancún, playa del carmen, cuenta con zona privada de
-            playa, piscina al aire libre, wifi gratis en todo el hotel y 13
-            restaurantes con diferentes menús.
+            {{Hotel[1].description
+            }}
           </p>
         </div>
       </div>
@@ -78,15 +86,13 @@
       <div class="container__vuelos__opcion">
 
         <div class="container__hospedaje__opcion__img">
-          <a href="https://www.avianca.com/es/?poscode=CO&utm_source=gads&utm_medium=pros&utm_campaign=gs:es-co_br\core/geo@mde|col_co_cpc&utm_content=gs:es-co_br\core:av/ex+ph@avianca&gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnVfF3NpddUFXW5Z2OCBSLe0icSmeRxNXumE0QkI5Yk5-hpOxnCObesaAuXMEALw_wcB" target="_blank"><img src="../../../assets/img/avion-avianca.jpg" alt="" /></a>
+          <a href="https://www.avianca.com/es/?poscode=CO&utm_source=gads&utm_medium=pros&utm_campaign=gs:es-co_br\core/geo@mde|col_co_cpc&utm_content=gs:es-co_br\core:av/ex+ph@avianca&gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnVfF3NpddUFXW5Z2OCBSLe0icSmeRxNXumE0QkI5Yk5-hpOxnCObesaAuXMEALw_wcB" target="_blank"><img [src]="Flight[0].img" alt="" /></a>
         </div>
 
         <div class="container__hospedaje__opcion__info">
-          <h3>Avianca</h3>
-          <p class="txt-parrafo">
-            Avianca, una aerolínea Colombiana de categoria premiun, con más de 104
-            años de trayectoria, volando a más de 104 destinos, con "Avianca el
-            cielo es de todos".
+          <h3>{{Flight[0].name}}</h3>
+          <p class="descripcion">
+            {{Flight[0].description}}
           </p>
         </div>
         
@@ -94,15 +100,13 @@
       <div class="container__vuelos__opcion">
 
         <div class="container__hospedaje__opcion__img">
-          <a href="https://aeromexico.com/es-co/?gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnVYHI_iukx21hbj-_3pOY_1J1hBakiHKE1tXN_GHM-wBCjZ2FzwP_IaAgkFEALw_wcB&gclsrc=aw.ds" target="_blank"><img src="../../../assets/img/Aeromexico-avion.jpg" alt=""/></a>
+          <a href="https://aeromexico.com/es-co/?gad_source=1&gclid=Cj0KCQjwzva1BhD3ARIsADQuPnVYHI_iukx21hbj-_3pOY_1J1hBakiHKE1tXN_GHM-wBCjZ2FzwP_IaAgkFEALw_wcB&gclsrc=aw.ds" target="_blank"><img [src]="Flight[1].img" alt=""/></a>
         </div>
 
         <div class="container__hospedaje__opcion__info">
-          <h3>Aeromexico</h3>
-          <p class="txt-parrafo">
-            Aeromexico, una aerolínea Mexicana de categoria premiun, con más de 90
-            años de trayectoria, volando a más de 104 destinos, con Aeromexico
-            "estar cerca, llegar lejos".
+          <h3>{{Flight[1].name}}</h3>
+          <p class="descripcion">
+            {{Flight[1].description}}
           </p>
         </div>
 
